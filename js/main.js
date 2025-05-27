@@ -39,6 +39,10 @@ const bootSequenceTimeline = {
 
 // Initialize the app
 function init() {
+  // Always reset to home page on load and clear any existing hash
+  history.replaceState(null, null, window.location.pathname);
+  window.location.hash = '';
+  
   // Start boot animation
   startBootAnimation();
   
@@ -55,19 +59,36 @@ function init() {
   generateSkills();
   generateExperience();
   
-  // Initialize page routing
-  handleRouting();
+  // Initialize page routing after boot animation completes
+  setTimeout(() => {
+    navigateTo('#home');
+    handleRouting();
+  }, bootSequenceTimeline.removeBootScreen + 100);
 }
 
 // Xbox Boot Animation
 function startBootAnimation() {
-  // Check if boot animation should be skipped (user setting)
-  const skipBoot = localStorage.getItem('xbox-skip-boot') === 'true';
+  // Always show boot animation on fresh page load, ignore user setting for initial load
+  const isPageRefresh = !sessionStorage.getItem('hasVisited');
   
-  if (skipBoot) {
-    bootAnimation.style.display = 'none';
-    return;
+  if (!isPageRefresh) {
+    // Check if boot animation should be skipped for subsequent loads
+    const skipBoot = localStorage.getItem('xbox-skip-boot') === 'true';
+    if (skipBoot) {
+      bootAnimation.style.display = 'none';
+      return;
+    }
   }
+  
+  // Mark that user has visited
+  sessionStorage.setItem('hasVisited', 'true');
+  
+  // Ensure boot animation is visible
+  bootAnimation.style.display = 'flex';
+  bootAnimation.classList.remove('opacity-0');
+  bootLogo.classList.remove('opacity-100');
+  loadingBar.classList.remove('opacity-100');
+  loadingProgress.style.width = '0%';
   
   // Animate logo appearance
   setTimeout(() => {
@@ -89,9 +110,10 @@ function startBootAnimation() {
     bootAnimation.classList.add('opacity-0');
   }, bootSequenceTimeline.bootComplete);
   
-  // Remove boot animation from DOM
+  // Remove boot animation from DOM and show main content
   setTimeout(() => {
     bootAnimation.style.display = 'none';
+    content.style.opacity = '1';
   }, bootSequenceTimeline.removeBootScreen);
 }
 
@@ -532,9 +554,8 @@ function generateExperience() {
 
 // Handle Page Navigation/Routing
 function handleRouting() {
-  // Check initial hash
-  const initialHash = window.location.hash || '#home';
-  navigateTo(initialHash);
+  // Always start at home page
+  navigateTo('#home');
   
   // Listen for hash changes
   window.addEventListener('hashchange', () => {
