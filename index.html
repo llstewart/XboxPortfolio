@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lincoln Stewart - Xbox UI Portfolio</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-xbox-black text-white">
+  <!-- Achievement Container -->
+  <div id="achievement-container" class="fixed right-5 top-20 z-50 w-80 flex flex-col"></div>
+  
+  <!-- Boot Animation -->
+  <div id="xbox-boot-animation" class="fixed inset-0 bg-black flex flex-col items-center justify-center z-50">
+    <div id="xbox-logo" class="opacity-0 transition-opacity duration-500">
+      <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 0C22.4 0 0 22.4 0 50C0 77.6 22.4 100 50 100C77.6 100 100 77.6 100 50C100 22.4 77.6 0 50 0Z" fill="#107C10"/>
+        <path d="M50 25.6C56.3 25.6 61.6 20.3 61.6 14C61.6 7.7 56.3 2.4 50 2.4C43.7 2.4 38.4 7.7 38.4 14C38.4 20.3 43.7 25.6 50 25.6Z" fill="white"/>
+        <path d="M79.7 79.7C73.4 86 64.2 89.7 50.1 89.7C36 89.7 26.8 86 20.5 79.7C14.2 73.4 10.5 64.2 10.5 50.1C10.5 36 14.2 26.8 20.5 20.5C26.8 14.2 36 10.5 50.1 10.5C64.2 10.5 73.4 14.2 79.7 20.5C86 26.8 89.7 36 89.7 50.1C89.7 64.2 86 73.4 79.7 79.7ZM50 0C22.4 0 0 22.4 0 50C0 77.6 22.4 100 50 100C77.6 100 50 0 50 0Z" fill="#107C10"/>
+      </svg>
+    </div>
+    <div id="loading-bar" class="mt-8 w-64 h-1 bg-gray-800 opacity-0 transition-opacity duration-500">
+      <div id="loading-progress" class="h-full bg-xbox-green w-0 transition-all duration-500"></div>
+    </div>
+  </div>
+
+  <!-- Xbox Header -->
+  <header id="xbox-header" class="fixed top-0 w-full bg-xbox-black bg-opacity-90 z-40 px-4 py-3 flex justify-between items-center border-b border-xbox-gray">
+    <div class="flex items-center">
+      <div id="profile-button" class="w-10 h-10 rounded-full bg-xbox-green flex items-center justify-center mr-2 cursor-pointer hover:bg-xbox-light-green transition-colors duration-200">
+        <span class="text-white font-bold">LS</span>
+      </div>
+      <div class="cursor-pointer" id="home-button">
+        <div class="font-bold">Lincoln Stewart</div>
+        <div class="text-xs text-gray-400">Software Engineer</div>
+      </div>
+      <div class="ml-4 px-2 py-1 rounded bg-xbox-green text-xs text-white font-bold">ULTIMATE</div>
+      <div class="ml-2 px-2 py-1 rounded bg-xbox-dark text-xs text-gray-300">18294</div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="Lincoln_Stewart_SWE_Resume.pdf" download="Lincoln_Stewart_Resume.pdf" class="bg-xbox-green hover:bg-xbox-light-green text-white text-sm px-3 py-1 rounded-md transition-colors duration-200 mr-3 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Resume
+      </a>
+      <div class="text-sm text-gray-400">
+        <span class="text-white" id="current-time">00:00</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Xbox Sidebar -->
+  <div id="xbox-sidebar" class="fixed left-0 top-0 h-full bg-xbox-black bg-opacity-95 border-r border-xbox-gray overflow-y-auto transform transition-transform duration-300 z-30 w-56 pt-16">
+    <nav class="py-4">
+      <ul class="space-y-1">
+        <li>
+          <a href="#home" class="sidebar-link">
+            <i class="fa-solid fa-house mr-3"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#experience" class="sidebar-link">
+            <i class="fa-solid fa-briefcase mr-3"></i>
+            <span>Experience</span>
+          </a>
+        </li>
+        <li>
+          <a href="#skills" class="sidebar-link">
+            <i class="fa-solid fa-gear mr-3"></i>
+            <span>Skills</span>
+          </a>
+        </li>
+        <li>
+          <a href="#projects" class="sidebar-link">
+            <i class="fa-solid fa-rocket mr-3"></i>
+            <span>Projects</span>
+          </a>
+        </li>
+        <li>
+          <a href="#education" class="sidebar-link">
+            <i class="fa-solid fa-graduation-cap mr-3"></i>
+            <span>Education</span>
+          </a>
+        </li>
+        <li>
+          <a href="#contact" class="sidebar-link">
+            <i class="fa-solid fa-envelope mr-3"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+      
+      <div class="mt-6 border-t border-xbox-gray pt-4">
+        <h3 class="px-4 text-sm font-bold text-gray-400 mb-2">MY GAMES</h3>
+        <ul class="space-y-1">
+          <li>
+            <a href="#home" class="sidebar-link">
+              <i class="fa-solid fa-gamepad mr-3"></i>
+              <span>All Games</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mt-6 border-t border-xbox-gray pt-4">
+        <h3 class="px-4 text-sm font-bold text-gray-400 mb-2">MICROSOFT STORE</h3>
+        <ul class="space-y-1">
+          <li>
+            <a href="https://github.com/lincolnstewart" target="_blank" class="sidebar-link">
+              <i class="fa-brands fa-github mr-3"></i>
+              <span>GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/lincolnstewart" target="_blank" class="sidebar-link">
+              <i class="fa-brands fa-linkedin mr-3"></i>
+              <span>LinkedIn</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  
+  <!-- Toggle Sidebar Button -->
+  <button id="toggle-sidebar" class="fixed left-4 bottom-4 w-12 h-12 rounded-full bg-xbox-green flex items-center justify-center text-white z-30 shadow-lg hover:bg-xbox-light-green transition-colors duration-200">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Xbox Guide Overlay -->
+  <div id="xbox-guide" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+    <div class="bg-xbox-dark w-11/12 max-w-3xl rounded-lg shadow-2xl overflow-hidden">
+      <div class="flex border-b border-xbox-gray">
+        <button class="guide-tab-btn active" data-tab="profile">Profile</button>
+        <button class="guide-tab-btn" data-tab="achievements">Achievements</button>
+        <button class="guide-tab-btn" data-tab="settings">Settings</button>
+      </div>
+      
+      <div class="guide-tab-content active" data-tab="profile">
+        <div class="p-6">
+          <div class="flex items-center mb-6">
+            <div class="w-16 h-16 rounded-full bg-xbox-green flex items-center justify-center mr-4">
+              <span class="text-white font-bold text-2xl">LS</span>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Lincoln Stewart</h3>
+              <p class="text-gray-400">Software Engineer</p>
+              <div class="text-xs mt-1">
+                <span class="text-xbox-green">Online</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-xbox-gray pt-4">
+            <h4 class="text-lg font-bold mb-3">About Me</h4>
+            <p class="text-gray-300 mb-4">
+              A passionate Software Engineer focused on delivering high-quality, efficient solutions. 
+              With expertise in Python, JavaScript, and various frameworks, I build robust applications 
+              that solve real-world problems.
+            </p>
+            
+            <div class="grid grid-cols-2 gap-4 mt-6">
+              <div class="bg-xbox-black p-3 rounded">
+                <h5 class="font-bold text-sm text-xbox-green">Location</h5>
+                <p class="text-sm">Milwaukee, WI</p>
+              </div>
+              
+              <div class="bg-xbox-black p-3 rounded">
+                <h5 class="font-bold text-sm text-xbox-green">Email</h5>
+                <p class="text-sm">lincoln.stewart@example.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="guide-tab-content" data-tab="achievements">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-4">Achievements</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-xbox-black p-4 rounded flex items-start">
+              <div class="w-12 h-12 rounded-full bg-xbox-green flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-home text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Welcome!</h4>
+                <p class="text-xs text-gray-400 mb-1">Visited the homepage for the first time.</p>
+                <div class="text-xs text-xbox-green">+15G</div>
+              </div>
+            </div>
+            
+            <div class="bg-xbox-black p-4 rounded flex items-start">
+              <div class="w-12 h-12 rounded-full bg-xbox-green flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-user text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Profile Explorer</h4>
+                <p class="text-xs text-gray-400 mb-1">Opened the profile section.</p>
+                <div class="text-xs text-xbox-green">+15G</div>
+              </div>
+            </div>
+            
+            <div class="bg-xbox-black p-4 rounded flex items-start">
+              <div class="w-12 h-12 rounded-full bg-xbox-green flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-briefcase text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Career Explorer</h4>
+                <p class="text-xs text-gray-400 mb-1">Discovered professional experience details.</p>
+                <div class="text-xs text-xbox-green">+15G</div>
+              </div>
+            </div>
+            
+            <div class="bg-xbox-black p-4 rounded flex items-start">
+              <div class="w-12 h-12 rounded-full bg-xbox-green flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-gear text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Skill Master</h4>
+                <p class="text-xs text-gray-400 mb-1">Discovered your areas of expertise.</p>
+                <div class="text-xs text-xbox-green">+15G</div>
+              </div>
+            </div>
+            
+            <div class="bg-xbox-black p-4 rounded flex items-start">
+              <div class="w-12 h-12 rounded-full bg-xbox-green flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-rocket text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Project Inspector</h4>
+                <p class="text-xs text-gray-400 mb-1">Examined your first project in detail.</p>
+                <div class="text-xs text-xbox-green">+15G</div>
+              </div>
+            </div>
+            
+            <div class="bg-xbox-black p-4 rounded flex items-start">
+              <div class="w-12 h-12 rounded-full bg-xbox-green flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-download text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">Resume Collector</h4>
+                <p class="text-xs text-gray-400 mb-1">Downloaded the resume file.</p>
+                <div class="text-xs text-xbox-green">+15G</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="guide-tab-content" data-tab="settings">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-4">Settings</h3>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center p-3 bg-xbox-black rounded">
+              <div>
+                <h4 class="font-bold">Show Boot Animation</h4>
+                <p class="text-xs text-gray-400">Enable Xbox boot animation on page load</p>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="boot-animation-toggle" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-xbox-black rounded">
+              <div>
+                <h4 class="font-bold">Achievement Notifications</h4>
+                <p class="text-xs text-gray-400">Show achievement pop-ups</p>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="achievements-toggle" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex justify-end p-4 border-t border-xbox-gray">
+        <button id="close-guide" class="px-4 py-2 bg-xbox-green text-white rounded hover:bg-xbox-light-green transition-colors duration-200">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="content" class="pt-16 pl-0 min-h-screen transition-all duration-300">
+    <!-- Pages will be loaded here -->
+    <div id="page-container" class="p-6">
+      <!-- Home Page (Default) -->
+      <div id="home-page" class="page-content active">
+        <div class="animate-fadeIn">
+          <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold">Welcome, <span class="text-xbox-green">Lincoln</span></h1>
+            <div class="text-sm text-gray-400">Last played: Today</div>
+          </div>
+          
+          <!-- Filter tabs -->
+          <div class="mb-6 border-b border-xbox-gray">
+            <div class="flex space-x-4">
+              <button class="filter-tab active" data-filter="all">All Games</button>
+              <button class="filter-tab" data-filter="skills">Skills</button>
+              <button class="filter-tab" data-filter="experience">Experience</button>
+              <button class="filter-tab" data-filter="projects">Projects</button>
+            </div>
+          </div>
+          
+          <!-- Xbox Game Cards Grid -->
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+              <span class="w-1.5 h-6 bg-xbox-green mr-2 rounded-sm"></span>
+              My Games
+            </h2>
+            
+            <div id="game-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              <!-- Game cards will be dynamically generated here -->
+            </div>
+          </div>
+          
+          <!-- Quick Access Section -->
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-6 text-white flex items-center">
+              <span class="w-1.5 h-6 bg-xbox-green mr-2 rounded-sm"></span>
+              Quick Resume
+            </h2>
+            
+            <div class="bg-xbox-dark rounded-lg p-5">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-gradient-to-br from-xbox-gray to-xbox-dark p-4 rounded-lg hover:from-xbox-green hover:to-xbox-green/70 transition-all cursor-pointer">
+                  <h3 class="text-lg font-bold mb-1">Python</h3>
+                  <p class="text-xs text-gray-400">Programming</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-xbox-gray to-xbox-dark p-4 rounded-lg hover:from-xbox-green hover:to-xbox-green/70 transition-all cursor-pointer">
+                  <h3 class="text-lg font-bold mb-1">React.js</h3>
+                  <p class="text-xs text-gray-400">Frontend</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-xbox-gray to-xbox-dark p-4 rounded-lg hover:from-xbox-green hover:to-xbox-green/70 transition-all cursor-pointer">
+                  <h3 class="text-lg font-bold mb-1">SQL</h3>
+                  <p class="text-xs text-gray-400">Database</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-xbox-gray to-xbox-dark p-4 rounded-lg hover:from-xbox-green hover:to-xbox-green/70 transition-all cursor-pointer">
+                  <h3 class="text-lg font-bold mb-1">Docker</h3>
+                  <p class="text-xs text-gray-400">DevOps</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Projects Page -->
+      <div id="projects-page" class="page-content">
+        <div class="animate-fadeIn">
+          <h1 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="mr-3">🚀</span> Projects
+          </h1>
+          
+          <div id="projects-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Projects will be dynamically generated here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Skills Page -->
+      <div id="skills-page" class="page-content">
+        <div class="animate-fadeIn">
+          <h1 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="mr-3">⚙️</span> Skills
+          </h1>
+          
+          <div id="skills-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Skills will be dynamically generated here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Experience Page -->
+      <div id="experience-page" class="page-content">
+        <div class="animate-fadeIn">
+          <h1 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="mr-3">💼</span> Experience
+          </h1>
+          
+          <div id="experience-container" class="space-y-6">
+            <!-- Experience items will be dynamically generated here -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Education Page -->
+      <div id="education-page" class="page-content">
+        <div class="animate-fadeIn">
+          <h1 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="mr-3">🎓</span> Education
+          </h1>
+          
+          <div class="space-y-6">
+            <div class="bg-xbox-dark rounded-lg p-6">
+              <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                <div>
+                  <h2 class="text-xl font-bold text-xbox-green">BS, Computer Science & Engineering</h2>
+                  <h3 class="text-lg">University of Wisconsin - Madison</h3>
+                </div>
+                <div class="text-gray-400 mt-2 md:mt-0">Aug 2019 - May 2023</div>
+              </div>
+              <p class="text-gray-300">
+                Graduated with honors. Focused on software development, data structures, and algorithms.
+                Participated in software engineering projects and hackathons.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contact Page -->
+      <div id="contact-page" class="page-content">
+        <div class="animate-fadeIn">
+          <h1 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="mr-3">📧</span> Contact
+          </h1>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-xbox-dark rounded-lg p-6">
+              <h2 class="text-xl font-bold mb-4 text-xbox-green">Get In Touch</h2>
+              <p class="text-gray-300 mb-4">
+                Feel free to contact me for job opportunities, collaborations, or just to say hi!
+              </p>
+              
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full bg-xbox-green flex items-center justify-center mr-3">
+                    <i class="fas fa-envelope text-white"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm text-gray-400">Email</div>
+                    <div class="font-medium">lincoln.stewart@example.com</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full bg-xbox-green flex items-center justify-center mr-3">
+                    <i class="fas fa-map-marker-alt text-white"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm text-gray-400">Location</div>
+                    <div class="font-medium">Milwaukee, WI</div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full bg-xbox-green flex items-center justify-center mr-3">
+                    <i class="fab fa-linkedin text-white"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm text-gray-400">LinkedIn</div>
+                    <div class="font-medium">linkedin.com/in/lincolnstewart</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-xbox-dark rounded-lg p-6">
+              <h2 class="text-xl font-bold mb-4 text-xbox-green">Contact Form</h2>
+              <form id="contact-form" class="space-y-4">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Name</label>
+                  <input type="text" id="name" name="name" class="w-full px-3 py-2 bg-xbox-black border border-xbox-gray rounded-md text-white focus:outline-none focus:ring-2 focus:ring-xbox-green">
+                </div>
+                
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Email</label>
+                  <input type="email" id="email" name="email" class="w-full px-3 py-2 bg-xbox-black border border-xbox-gray rounded-md text-white focus:outline-none focus:ring-2 focus:ring-xbox-green">
+                </div>
+                
+                <div>
+                  <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Message</label>
+                  <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 bg-xbox-black border border-xbox-gray rounded-md text-white focus:outline-none focus:ring-2 focus:ring-xbox-green"></textarea>
+                </div>
+                
+                <button type="submit" class="w-full bg-xbox-green hover:bg-xbox-light-green text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
