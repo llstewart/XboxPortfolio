@@ -25,8 +25,7 @@ const skillsContainer = document.getElementById('skills-container');
 const experienceContainer = document.getElementById('experience-container');
 const contactForm = document.getElementById('contact-form');
 
-let sidebarOpen = window.innerWidth >= 768;
-updateSidebarState();
+let sidebarOpen = false;
 
 // Boot Animation Timeline
 const bootSequenceTimeline = {
@@ -333,12 +332,14 @@ function toggleSidebar() {
 
 // Update Sidebar and Content positioning
 function updateSidebarState() {
-  if (sidebarOpen) {
-    sidebar.style.transform = 'translateX(0)';
-    content.style.paddingLeft = '14rem'; // 56px (w-56)
-  } else {
-    sidebar.style.transform = 'translateX(-100%)';
-    content.style.paddingLeft = '0';
+  if (sidebar && content) {
+    if (sidebarOpen) {
+      sidebar.classList.add('open');
+      content.classList.add('sidebar-open');
+    } else {
+      sidebar.classList.remove('open');
+      content.classList.remove('sidebar-open');
+    }
   }
 }
 
