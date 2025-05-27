@@ -12,17 +12,19 @@
   <div id="achievement-container" class="fixed right-5 top-20 z-50 w-80 flex flex-col"></div>
   
   <!-- Boot Animation -->
-  <div id="xbox-boot-animation" class="fixed inset-0 bg-black flex flex-col items-center justify-center z-50">
+  <div id="xbox-boot-animation" class="fixed inset-0 bg-black flex flex-col items-center justify-center z-50" style="width: 100vw; height: 100vh;">
     <div id="xbox-logo" class="opacity-0 transition-opacity duration-500">
-      <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 0C22.4 0 0 22.4 0 50C0 77.6 22.4 100 50 100C77.6 100 100 77.6 100 50C100 22.4 77.6 0 50 0Z" fill="#107C10"/>
-        <path d="M50 25.6C56.3 25.6 61.6 20.3 61.6 14C61.6 7.7 56.3 2.4 50 2.4C43.7 2.4 38.4 7.7 38.4 14C38.4 20.3 43.7 25.6 50 25.6Z" fill="white"/>
-        <path d="M79.7 79.7C73.4 86 64.2 89.7 50.1 89.7C36 89.7 26.8 86 20.5 79.7C14.2 73.4 10.5 64.2 10.5 50.1C10.5 36 14.2 26.8 20.5 20.5C26.8 14.2 36 10.5 50.1 10.5C64.2 10.5 73.4 14.2 79.7 20.5C86 26.8 89.7 36 89.7 50.1C89.7 64.2 86 73.4 79.7 79.7ZM50 0C22.4 0 0 22.4 0 50C0 77.6 22.4 100 50 100C77.6 100 50 0 50 0Z" fill="#107C10"/>
+      <svg width="150" height="150" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="50" fill="#107C10"/>
+        <path d="M50 20c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15z" fill="white"/>
+        <path d="M35 35c-8.3 0-15 6.7-15 15s6.7 15 15 15c8.3 0 15-6.7 15-15s-6.7-15-15-15z" fill="white"/>
+        <path d="M65 35c8.3 0 15 6.7 15 15s-6.7 15-15 15c-8.3 0-15-6.7-15-15s6.7-15 15-15z" fill="white"/>
       </svg>
     </div>
-    <div id="loading-bar" class="mt-8 w-64 h-1 bg-gray-800 opacity-0 transition-opacity duration-500">
-      <div id="loading-progress" class="h-full bg-xbox-green w-0 transition-all duration-500"></div>
+    <div id="loading-bar" class="mt-8 w-80 h-2 bg-gray-800 opacity-0 transition-opacity duration-500 rounded">
+      <div id="loading-progress" class="h-full bg-xbox-green w-0 transition-all duration-500 rounded"></div>
     </div>
+    <div id="loading-text" class="mt-4 text-white text-lg opacity-0 transition-opacity duration-500">Loading...</div>
   </div>
 
   <!-- Xbox Header -->

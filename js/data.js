@@ -113,7 +113,7 @@ const resumeData = {
       title: "Professional Experience",
       subtitle: "Career Journey",
       description: "Explore my professional experience and career growth",
-      coverImage: "images/experience-cover.jpg",
+      coverImage: "images/experience-card.svg",
       route: "#experience",
       category: "experience",
       achievements: [
@@ -128,7 +128,7 @@ const resumeData = {
       title: "Technical Skills",
       subtitle: "Developer Toolkit",
       description: "Discover my technical expertise and competencies",
-      coverImage: "images/skills-cover.jpg",
+      coverImage: "images/skills-card.svg",
       route: "#skills",
       category: "skills",
       achievements: [
@@ -143,7 +143,7 @@ const resumeData = {
       title: "Projects Portfolio",
       subtitle: "Development Showcase",
       description: "View my latest software development projects",
-      coverImage: "images/projects-cover.jpg",
+      coverImage: "images/projects-card.svg",
       route: "#projects",
       category: "projects",
       achievements: [
@@ -158,7 +158,7 @@ const resumeData = {
       title: "Education",
       subtitle: "Academic Background",
       description: "Learn about my academic qualifications",
-      coverImage: "images/education-cover.jpg",
+      coverImage: "images/education-card.svg",
       route: "#education",
       category: "all",
       achievements: [
@@ -173,7 +173,7 @@ const resumeData = {
       title: "Contact Me",
       subtitle: "Get In Touch",
       description: "Find ways to connect with me",
-      coverImage: "images/contact-cover.jpg",
+      coverImage: "images/contact-card.svg",
       route: "#contact",
       category: "all",
       achievements: [
