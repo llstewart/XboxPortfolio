@@ -14,12 +14,9 @@
   <!-- Boot Animation -->
   <div id="xbox-boot-animation">
     <div id="xbox-logo">
-      <svg width="150" height="150" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="50" fill="#107C10"/>
-        <path d="M50 20c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15z" fill="white"/>
-        <path d="M35 35c-8.3 0-15 6.7-15 15s6.7 15 15 15c8.3 0 15-6.7 15-15s-6.7-15-15-15z" fill="white"/>
-        <path d="M65 35c8.3 0 15 6.7 15 15s-6.7 15-15 15c-8.3 0-15-6.7-15-15s6.7-15 15-15z" fill="white"/>
-      </svg>
+      <div class="xbox-orb">
+        <div class="orb-letter">L</div>
+      </div>
     </div>
     <div id="loading-bar">
       <div id="loading-progress"></div>
@@ -174,48 +171,88 @@
   <!-- Main Content -->
   <main id="content">
     <!-- Home Page -->
-    <div id="home-page" class="page-content active">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-        <h1 style="font-size: 32px; font-weight: bold;">Welcome, <span style="color: #107C10;">Lincoln</span></h1>
-        <div style="font-size: 14px; color: #a0a0a0;">Last played: Today</div>
-      </div>
+    <div id="home-page" class="page-content active xbox-dashboard">
+      <!-- Xbox Dashboard Background -->
+      <div class="dashboard-bg"></div>
       
-      <!-- Filter tabs -->
-      <div style="margin-bottom: 30px; border-bottom: 1px solid #2d2d2d;">
-        <div style="display: flex; gap: 0;">
-          <button class="filter-tab active" data-filter="all">All Games</button>
-          <button class="filter-tab" data-filter="skills">Skills</button>
-          <button class="filter-tab" data-filter="experience">Experience</button>
-          <button class="filter-tab" data-filter="projects">Projects</button>
+      <!-- User Profile Section -->
+      <div class="user-profile-section">
+        <div class="profile-avatar">LS</div>
+        <div class="profile-info">
+          <h1 class="profile-name">Lincoln Stewart</h1>
+          <div class="profile-status">
+            <span class="status-indicator"></span>
+            <span class="status-text">Online • Software Engineer</span>
+          </div>
+        </div>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-value">18294</div>
+            <div class="stat-label">Gamerscore</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">5</div>
+            <div class="stat-label">Achievements</div>
+          </div>
         </div>
       </div>
       
-      <!-- Xbox Game Cards Grid -->
-      <div style="margin-bottom: 40px;">
-        <h2 class="section-title">My Games</h2>
-        <div id="game-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+      <!-- Filter tabs -->
+      <div class="xbox-tabs">
+        <button class="filter-tab active" data-filter="all">All Games</button>
+        <button class="filter-tab" data-filter="skills">Skills</button>
+        <button class="filter-tab" data-filter="experience">Experience</button>
+        <button class="filter-tab" data-filter="projects">Projects</button>
       </div>
       
-      <!-- Quick Access Section -->
-      <div style="margin-top: 60px;">
-        <h2 class="section-title">Quick Resume</h2>
-        <div class="section">
-          <div class="grid grid-cols-2 md:grid-cols-4">
-            <div class="quick-access-card">
-              <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">Python</h3>
-              <p style="font-size: 12px; color: #a0a0a0;">Programming</p>
+      <!-- Recently Played Section -->
+      <div class="dashboard-section">
+        <h2 class="dashboard-title">Recently Played</h2>
+        <div class="featured-card">
+          <div class="featured-content">
+            <h3>Professional Experience</h3>
+            <p>Continue your career journey</p>
+            <div class="play-button">Continue</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Game Library -->
+      <div class="dashboard-section">
+        <h2 class="dashboard-title">My Games</h2>
+        <div id="game-cards" class="xbox-game-grid"></div>
+      </div>
+      
+      <!-- Quick Resume Section -->
+      <div class="dashboard-section">
+        <h2 class="dashboard-title">Quick Resume</h2>
+        <div class="quick-resume-grid">
+          <div class="quick-resume-card">
+            <div class="quick-icon">🐍</div>
+            <div class="quick-info">
+              <h4>Python</h4>
+              <p>Programming</p>
             </div>
-            <div class="quick-access-card">
-              <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">React.js</h3>
-              <p style="font-size: 12px; color: #a0a0a0;">Frontend</p>
+          </div>
+          <div class="quick-resume-card">
+            <div class="quick-icon">⚛️</div>
+            <div class="quick-info">
+              <h4>React.js</h4>
+              <p>Frontend</p>
             </div>
-            <div class="quick-access-card">
-              <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">Ignition SCADA</h3>
-              <p style="font-size: 12px; color: #a0a0a0;">Industrial</p>
+          </div>
+          <div class="quick-resume-card">
+            <div class="quick-icon">🏭</div>
+            <div class="quick-info">
+              <h4>Ignition SCADA</h4>
+              <p>Industrial</p>
             </div>
-            <div class="quick-access-card">
-              <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">Azure SDK</h3>
-              <p style="font-size: 12px; color: #a0a0a0;">Cloud</p>
+          </div>
+          <div class="quick-resume-card">
+            <div class="quick-icon">☁️</div>
+            <div class="quick-info">
+              <h4>Azure SDK</h4>
+              <p>Cloud</p>
             </div>
           </div>
         </div>
