@@ -3,9 +3,9 @@ const resumeData = {
   profile: {
     name: "Lincoln Stewart",
     title: "Software Engineer",
-    location: "Milwaukee, WI",
-    email: "lincoln.stewart@example.com",
-    phone: "(555) 123-4567",
+    location: "Hyattsville, MD",
+    email: "lincolnstewart4@gmail.com",
+    phone: "(443) 460-8224",
     linkedin: "linkedin.com/in/lincolnstewart",
     github: "github.com/lincolnstewart"
   },
@@ -15,36 +15,57 @@ const resumeData = {
       id: "programming",
       title: "Programming Languages",
       items: [
-        { name: "Python", proficiency: 90 },
-        { name: "JavaScript", proficiency: 85 },
-        { name: "Java", proficiency: 80 },
-        { name: "C/C++", proficiency: 75 },
-        { name: "SQL", proficiency: 85 },
-        { name: "HTML/CSS", proficiency: 90 }
+        { name: "Python", proficiency: 95 },
+        { name: "JavaScript", proficiency: 90 },
+        { name: "Java", proficiency: 85 },
+        { name: "C/C++", proficiency: 80 },
+        { name: "SQL", proficiency: 90 },
+        { name: "HTML/CSS", proficiency: 90 },
+        { name: "Bash/Shell", proficiency: 80 },
+        { name: "PHP", proficiency: 75 }
       ]
     },
     {
       id: "frameworks",
-      title: "Frameworks & Libraries",
+      title: "Libraries & Frameworks",
       items: [
-        { name: "React.js", proficiency: 85 },
-        { name: "Node.js", proficiency: 80 },
-        { name: "Django", proficiency: 75 },
-        { name: "Flask", proficiency: 80 },
-        { name: "Vue.js", proficiency: 70 },
+        { name: "React.js", proficiency: 90 },
+        { name: "Vue.js", proficiency: 85 },
+        { name: "Node.js", proficiency: 85 },
+        { name: "Django/Flask", proficiency: 85 },
+        { name: ".NET", proficiency: 80 },
+        { name: "TensorFlow", proficiency: 75 },
+        { name: "OpenCV", proficiency: 80 },
         { name: "Bootstrap", proficiency: 85 }
       ]
     },
     {
-      id: "tools",
-      title: "Tools & Platforms",
+      id: "platforms",
+      title: "Platforms & Tools",
       items: [
-        { name: "Docker", proficiency: 75 },
-        { name: "Git", proficiency: 90 },
-        { name: "AWS", proficiency: 70 },
-        { name: "Google Cloud", proficiency: 65 },
-        { name: "MongoDB", proficiency: 75 },
-        { name: "PostgreSQL", proficiency: 80 }
+        { name: "Docker", proficiency: 85 },
+        { name: "Git", proficiency: 95 },
+        { name: "GitHub Actions", proficiency: 85 },
+        { name: "Azure SDK", proficiency: 80 },
+        { name: "Google Cloud", proficiency: 80 },
+        { name: "PostgreSQL", proficiency: 85 },
+        { name: "MySQL", proficiency: 80 },
+        { name: "Linux/Unix", proficiency: 85 },
+        { name: "Ignition SCADA", proficiency: 90 },
+        { name: "OPC-UA", proficiency: 85 },
+        { name: "MQTT", proficiency: 80 }
+      ]
+    },
+    {
+      id: "concepts",
+      title: "Technical Concepts",
+      items: [
+        { name: "REST APIs", proficiency: 90 },
+        { name: "CI/CD", proficiency: 85 },
+        { name: "Server Configuration", proficiency: 80 },
+        { name: "Database Design", proficiency: 85 },
+        { name: "Cloud Deployment", proficiency: 80 },
+        { name: "Real-Time Monitoring", proficiency: 90 }
       ]
     }
   ],
@@ -53,70 +74,68 @@ const resumeData = {
     {
       id: "software-engineer",
       title: "Software Engineer",
-      company: "TechCorp Solutions",
-      location: "Milwaukee, WI",
-      startDate: "Jan 2023",
+      company: "Oshkosh Corporation",
+      location: "Remote",
+      startDate: "Dec 2023",
       endDate: "Present",
-      description: "Developed and maintained full-stack web applications using Python, JavaScript, and React. Collaborated with cross-functional teams to deliver high-quality software solutions.",
+      description: "Full-stack development of enterprise-grade applications using Python, React.js, ASP.NET, Vue.js, and Ignition SCADA—streamlining operations and boosting system efficiency by 25%.",
       responsibilities: [
-        "Built responsive web applications using React.js and Node.js",
-        "Designed and implemented RESTful APIs with Python/Django",
-        "Collaborated with UI/UX designers to create intuitive user interfaces",
-        "Participated in code reviews and maintained high coding standards",
-        "Deployed applications using Docker and cloud platforms"
+        "Design, develop, test, and deploy enterprise-grade applications using Python, React.js, ASP.NET, Vue.js, and Ignition SCADA",
+        "Implement CI/CD pipelines with GitHub Actions, achieving 40% faster deployments with zero downtime",
+        "Develop real-time monitoring dashboards with JavaScript, Tailwind CSS, and SQL, supporting mission-critical enterprise decisions",
+        "Build secure REST APIs to enable cross-system communication, reducing data retrieval latency by 15%"
       ],
-      technologies: ["Python", "React", "Node.js", "PostgreSQL", "Docker", "AWS"]
+      technologies: ["Python", "React.js", "ASP.NET", "Vue.js", "Ignition SCADA", "JavaScript", "Tailwind CSS", "SQL", "GitHub Actions"]
     },
     {
-      id: "junior-developer",
-      title: "Junior Developer",
-      company: "StartupHub Inc",
-      location: "Milwaukee, WI",
+      id: "system-engineer-intern",
+      title: "System Engineer, Intern",
+      company: "Oshkosh Corporation",
+      location: "Hybrid/Hagerstown",
       startDate: "Jun 2022",
-      endDate: "Dec 2022",
-      description: "Built responsive web interfaces and implemented RESTful APIs. Gained experience in agile development methodologies and version control.",
+      endDate: "Nov 2023",
+      description: "Developed Azure-hosted computer vision tools and real-time monitoring systems, achieving significant improvements in operational efficiency and system reliability.",
       responsibilities: [
-        "Developed front-end components using HTML, CSS, and JavaScript",
-        "Implemented backend APIs using Node.js and Express",
-        "Worked with databases to store and retrieve application data",
-        "Participated in daily standups and sprint planning meetings",
-        "Maintained and updated existing web applications"
+        "Developed Azure-hosted Computer vision tools using Python, CNNs, and OCR for automated text recognition, achieving 98% accuracy",
+        "Created live dashboards with React, JavaScript, Python and SQL, reducing operational downtime by 25% through live data visualization",
+        "Reconfigured robotic system operations in C++ to improve welding precision by 30%",
+        "Configured Linux servers to support 24/7 diagnostics, enhancing uptime by 20%"
       ],
-      technologies: ["JavaScript", "Node.js", "Express", "MongoDB", "Git"]
+      technologies: ["Python", "Azure", "CNNs", "OCR", "React", "JavaScript", "SQL", "C++", "Linux"]
     }
   ],
   
   projects: [
     {
-      id: "ecommerce-platform",
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce application with user authentication, product catalog, shopping cart, and payment processing. Built with React frontend and Python backend.",
-      technologies: ["React", "Python", "Django", "PostgreSQL", "Stripe", "Docker"],
+      id: "global-report-builder",
+      title: "Global Report Builder Application",
+      description: "Multi-site global reporting tool enabling users to generate personalized reports across enterprise facilities using Ignition Platform.",
+      technologies: ["Vue.js", "Python", "Ignition SCADA", "MQTT", "OPC-UA"],
       features: [
-        "User authentication and authorization",
-        "Product catalog with search and filtering",
-        "Shopping cart and checkout process",
-        "Payment integration with Stripe",
-        "Admin dashboard for inventory management"
+        "Multi-site global reporting across enterprise facilities",
+        "Vue.js frontend with Python-based services on Ignition Platform",
+        "Integrated MQTT and OPC-UA protocols for real-time data fetching",
+        "User authentication and data filtering capabilities",
+        "Scheduled report exports within Ignition gateway",
+        "Scalable platform used by 100+ users across global operations"
       ],
-      githubUrl: "https://github.com/lincolnstewart/ecommerce-platform",
-      liveUrl: "https://ecommerce-demo.example.com",
+      dateRange: "Aug 2024 - Oct 2024",
       imageUrl: "images/projects-card.svg"
     },
     {
-      id: "task-management",
-      title: "Task Management App",
-      description: "Collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-      technologies: ["Vue.js", "Node.js", "Socket.io", "MongoDB", "Express"],
+      id: "real-time-monitoring",
+      title: "Real-Time System Monitoring Dashboard",
+      description: "Integrated real-time metrics from distributed systems with modular dashboard framework for dynamic visualization and automated alerts.",
+      technologies: ["Python", "OPC-UA", "SQL", "JavaScript", "REST APIs"],
       features: [
-        "Real-time collaboration with Socket.io",
-        "Drag-and-drop task organization",
-        "Team member management",
-        "Progress tracking and reporting",
-        "Mobile-responsive design"
+        "Real-time metrics integration from distributed systems using OPC-UA",
+        "Structured SQL databases for system health metrics storage",
+        "Modular dashboard framework with dynamic visualization",
+        "Automated threshold-based alerts system",
+        "Custom APIs for cross-platform system connectivity",
+        "25% reduction in anomaly detection latency"
       ],
-      githubUrl: "https://github.com/lincolnstewart/task-manager",
-      liveUrl: "https://taskmanager-demo.example.com",
+      dateRange: "Jan 2024 - Mar 2024",
       imageUrl: "images/projects-card.svg"
     },
     {
@@ -129,8 +148,10 @@ const resumeData = {
         "Real-time data from Yelp Fusion API",
         "Responsive Bootstrap frontend",
         "ETL pipelines for data processing",
-        "Deployed on Google Compute Engine"
+        "Deployed on Google Compute Engine using Docker",
+        "High scalability and uptime architecture"
       ],
+      dateRange: "Jun 2023 - Dec 2023",
       githubUrl: "https://github.com/lincolnstewart/dmv-explorer",
       imageUrl: "images/projects-card.svg"
     }
@@ -138,21 +159,20 @@ const resumeData = {
   
   education: [
     {
-      id: "bs-computer-science",
-      degree: "BS, Computer Science & Engineering",
-      school: "University of Wisconsin - Madison",
-      location: "Madison, WI",
-      startDate: "Aug 2019",
-      endDate: "May 2023",
-      gpa: "3.7/4.0",
-      description: "Graduated with honors. Focused on software development, data structures, and algorithms. Participated in software engineering projects and hackathons.",
+      id: "bs-information-science",
+      degree: "Bachelor of Science, Information Science",
+      school: "University of Maryland, College Park",
+      location: "College Park, MD",
+      startDate: "Jan 2021",
+      endDate: "Dec 2023",
+      description: "Focused on information systems, data science, and software development. Gained expertise in programming, database design, and system analysis.",
       relevantCourses: [
         "Data Structures and Algorithms",
-        "Software Engineering",
-        "Database Management Systems",
+        "Database Design",
         "Web Development",
-        "Computer Networks",
-        "Operating Systems"
+        "Software Engineering",
+        "Information Systems",
+        "Data Science"
       ]
     }
   ],
