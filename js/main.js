@@ -42,6 +42,15 @@ function init() {
   // Clear any existing hash and force home page
   window.location.hash = '';
   history.replaceState(null, null, window.location.pathname);
+
+  // 🔒 Force close Xbox Guide if open
+  if (xboxGuide) {
+    xboxGuide.classList.add('hidden');
+    xboxGuide.style.display = 'none';
+  }
+  // Clear any existing hash and force home page
+  window.location.hash = '';
+  history.replaceState(null, null, window.location.pathname);
   
   // Reset all pages and show home immediately
   const pages = document.querySelectorAll('.page-content');
