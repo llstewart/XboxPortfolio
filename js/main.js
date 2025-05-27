@@ -39,9 +39,15 @@ const bootSequenceTimeline = {
 
 // Initialize the app
 function init() {
-  // Always reset to home page on load and clear any existing hash
-  history.replaceState(null, null, window.location.pathname);
+  // Clear any existing hash and force home page
   window.location.hash = '';
+  history.replaceState(null, null, window.location.pathname);
+  
+  // Reset all pages and show home immediately
+  const pages = document.querySelectorAll('.page-content');
+  pages.forEach(page => page.classList.remove('active'));
+  const homePage = document.getElementById('home-page');
+  if (homePage) homePage.classList.add('active');
   
   // Start boot animation
   startBootAnimation();
@@ -59,61 +65,77 @@ function init() {
   generateSkills();
   generateExperience();
   
-  // Initialize page routing after boot animation completes
+  // Initialize page routing after a short delay
   setTimeout(() => {
-    navigateTo('#home');
     handleRouting();
-  }, bootSequenceTimeline.removeBootScreen + 100);
+  }, 100);
 }
 
 // Xbox Boot Animation
 function startBootAnimation() {
-  // Always show boot animation on fresh page load, ignore user setting for initial load
-  const isPageRefresh = !sessionStorage.getItem('hasVisited');
+  // Always show boot animation on every page load
+  console.log('Starting Xbox boot animation');
   
-  if (!isPageRefresh) {
-    // Check if boot animation should be skipped for subsequent loads
-    const skipBoot = localStorage.getItem('xbox-skip-boot') === 'true';
-    if (skipBoot) {
-      bootAnimation.style.display = 'none';
-      return;
-    }
+  // Force boot animation to be visible and reset state
+  if (bootAnimation) {
+    bootAnimation.style.display = 'flex';
+    bootAnimation.style.opacity = '1';
+    bootAnimation.classList.remove('opacity-0');
   }
   
-  // Mark that user has visited
-  sessionStorage.setItem('hasVisited', 'true');
+  if (bootLogo) {
+    bootLogo.style.opacity = '0';
+    bootLogo.classList.remove('opacity-100');
+  }
   
-  // Ensure boot animation is visible
-  bootAnimation.style.display = 'flex';
-  bootAnimation.classList.remove('opacity-0');
-  bootLogo.classList.remove('opacity-100');
-  loadingBar.classList.remove('opacity-100');
-  loadingProgress.style.width = '0%';
+  if (loadingBar) {
+    loadingBar.style.opacity = '0';
+    loadingBar.classList.remove('opacity-100');
+  }
+  
+  if (loadingProgress) {
+    loadingProgress.style.width = '0%';
+  }
   
   // Animate logo appearance
   setTimeout(() => {
-    bootLogo.classList.add('opacity-100');
+    if (bootLogo) {
+      bootLogo.style.opacity = '1';
+      bootLogo.classList.add('opacity-100');
+    }
   }, bootSequenceTimeline.logoAppear);
   
   // Animate loading bar appearance
   setTimeout(() => {
-    loadingBar.classList.add('opacity-100');
+    if (loadingBar) {
+      loadingBar.style.opacity = '1';
+      loadingBar.classList.add('opacity-100');
+    }
   }, bootSequenceTimeline.loadingBarAppear);
   
   // Animate loading progress
   setTimeout(() => {
-    loadingProgress.style.width = '100%';
+    if (loadingProgress) {
+      loadingProgress.style.width = '100%';
+    }
   }, bootSequenceTimeline.loadingComplete);
   
   // Complete boot sequence
   setTimeout(() => {
-    bootAnimation.classList.add('opacity-0');
+    if (bootAnimation) {
+      bootAnimation.classList.add('opacity-0');
+    }
   }, bootSequenceTimeline.bootComplete);
   
   // Remove boot animation from DOM and show main content
   setTimeout(() => {
-    bootAnimation.style.display = 'none';
-    content.style.opacity = '1';
+    if (bootAnimation) {
+      bootAnimation.style.display = 'none';
+    }
+    if (content) {
+      content.style.opacity = '1';
+    }
+    console.log('Boot animation complete, showing main content');
   }, bootSequenceTimeline.removeBootScreen);
 }
 
@@ -128,16 +150,24 @@ function updateTime() {
 // Set up Event Listeners
 function setupEventListeners() {
   // Toggle Sidebar
-  toggleSidebarBtn.addEventListener('click', toggleSidebar);
+  if (toggleSidebarBtn) {
+    toggleSidebarBtn.addEventListener('click', toggleSidebar);
+  }
   
   // Profile Button (Open Guide)
-  profileButton.addEventListener('click', openGuide);
+  if (profileButton) {
+    profileButton.addEventListener('click', openGuide);
+  }
   
   // Home Button (Go to Home)
-  homeButton.addEventListener('click', () => navigateTo('#home'));
+  if (homeButton) {
+    homeButton.addEventListener('click', () => navigateTo('#home'));
+  }
   
   // Close Guide Button
-  closeGuideBtn.addEventListener('click', closeGuide);
+  if (closeGuideBtn) {
+    closeGuideBtn.addEventListener('click', closeGuide);
+  }
   
   // Guide Tab Buttons
   guideTabs.forEach(tab => {
@@ -159,15 +189,16 @@ function setupEventListeners() {
     });
   });
   
-  // Sidebar Links
-  document.querySelectorAll('.sidebar-link').forEach(link => {
-    link.addEventListener('click', (e) => {
+  // Sidebar Links - Use event delegation for better reliability
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.sidebar-link')) {
+      const link = e.target.closest('.sidebar-link');
       const href = link.getAttribute('href');
-      if (href.startsWith('#')) {
+      if (href && href.startsWith('#')) {
         e.preventDefault();
         navigateTo(href);
       }
-    });
+    }
   });
   
   // Contact Form
@@ -233,14 +264,22 @@ function updateSidebarState() {
 
 // Open Xbox Guide Overlay
 function openGuide() {
-  xboxGuide.classList.remove('hidden');
-  activateGuideTab('profile');
-  showAchievement('Guide Opened', 'Accessed the Xbox Guide menu!');
+  console.log('Opening Xbox Guide');
+  if (xboxGuide) {
+    xboxGuide.classList.remove('hidden');
+    xboxGuide.style.display = 'flex';
+    activateGuideTab('profile');
+    showAchievement('Guide Opened', 'Accessed the Xbox Guide menu!');
+  }
 }
 
 // Close Xbox Guide Overlay
 function closeGuide() {
-  xboxGuide.classList.add('hidden');
+  console.log('Closing Xbox Guide');
+  if (xboxGuide) {
+    xboxGuide.classList.add('hidden');
+    xboxGuide.style.display = 'none';
+  }
 }
 
 // Activate Guide Tab
@@ -567,6 +606,7 @@ function handleRouting() {
 // Navigate to a specific page
 function navigateTo(hash) {
   const pageName = hash.substring(1) || 'home';
+  console.log('Navigating to:', pageName);
   
   // Hide all pages
   const pages = document.querySelectorAll('.page-content');
@@ -578,6 +618,11 @@ function navigateTo(hash) {
   const targetPage = document.getElementById(`${pageName}-page`);
   if (targetPage) {
     targetPage.classList.add('active');
+    
+    // Update URL hash without triggering hashchange event
+    if (hash !== window.location.hash) {
+      history.pushState(null, null, hash);
+    }
     
     // Show welcome achievement on first home visit
     if (pageName === 'home' && !sessionStorage.getItem('home-visited')) {
@@ -696,4 +741,19 @@ function showAchievement(title, description) {
 }
 
 // Initialize the app when DOM is loaded
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM Content Loaded - Initializing Xbox Portfolio');
+  init();
+});
+
+// Also initialize on window load as backup
+window.addEventListener('load', () => {
+  console.log('Window Loaded - Ensuring Xbox Portfolio is ready');
+  // Double check that elements exist
+  if (!document.getElementById('xbox-boot-animation')) {
+    console.error('Boot animation element not found');
+  }
+  if (!document.getElementById('close-guide')) {
+    console.error('Close guide button not found');
+  }
+});
