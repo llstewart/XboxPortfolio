@@ -47,10 +47,66 @@ function init() {
   const pages = document.querySelectorAll('.page-content');
   pages.forEach(page => page.classList.remove('active'));
   const homePage = document.getElementById('home-page');
-  if (homePage) homePage.classList.add('active');
+  if (homePage) {
+    homePage.classList.add('active');
+  }
   
-  // Start boot animation
-  startBootAnimation();
+  // Ensure boot animation elements are visible during initialization
+  if (bootAnimation) {
+    bootAnimation.style.display = 'flex';
+    bootAnimation.style.opacity = '1';
+    bootAnimation.classList.remove('opacity-0');
+  }
+
+  if (bootLogo) {
+    bootLogo.style.opacity = '0';
+    bootLogo.classList.remove('opacity-100');
+  }
+
+  if (loadingBar) {
+    loadingBar.style.opacity = '0';
+    loadingBar.classList.remove('opacity-100');
+  }
+
+  if (loadingProgress) {
+    loadingProgress.style.width = '0%';
+  }
+
+  setTimeout(() => {
+    if (bootLogo) {
+      bootLogo.style.opacity = '1';
+      bootLogo.classList.add('opacity-100');
+    }
+  }, bootSequenceTimeline.logoAppear);
+
+  setTimeout(() => {
+    if (loadingBar) {
+      loadingBar.style.opacity = '1';
+      loadingBar.classList.add('opacity-100');
+    }
+  }, bootSequenceTimeline.loadingBarAppear);
+
+  setTimeout(() => {
+    if (loadingProgress) {
+      loadingProgress.style.width = '100%';
+    }
+  }, bootSequenceTimeline.loadingComplete);
+
+  setTimeout(() => {
+    if (bootAnimation) {
+      bootAnimation.classList.add('opacity-0');
+    }
+  }, bootSequenceTimeline.bootComplete);
+
+  setTimeout(() => {
+    if (bootAnimation) {
+      bootAnimation.style.display = 'none';
+    }
+    if (content) {
+      content.style.opacity = '1';
+    }
+    console.log('Boot animation complete, showing main content');
+  }, bootSequenceTimeline.removeBootScreen);
   
   // Update time
   updateTime();
@@ -73,61 +129,54 @@ function init() {
 
 // Xbox Boot Animation
 function startBootAnimation() {
-  // Always show boot animation on every page load
   console.log('Starting Xbox boot animation');
-  
-  // Force boot animation to be visible and reset state
+
   if (bootAnimation) {
     bootAnimation.style.display = 'flex';
     bootAnimation.style.opacity = '1';
     bootAnimation.classList.remove('opacity-0');
   }
-  
+
   if (bootLogo) {
     bootLogo.style.opacity = '0';
     bootLogo.classList.remove('opacity-100');
   }
-  
+
   if (loadingBar) {
     loadingBar.style.opacity = '0';
     loadingBar.classList.remove('opacity-100');
   }
-  
+
   if (loadingProgress) {
     loadingProgress.style.width = '0%';
   }
-  
-  // Animate logo appearance
+
   setTimeout(() => {
     if (bootLogo) {
       bootLogo.style.opacity = '1';
       bootLogo.classList.add('opacity-100');
     }
   }, bootSequenceTimeline.logoAppear);
-  
-  // Animate loading bar appearance
+
   setTimeout(() => {
     if (loadingBar) {
       loadingBar.style.opacity = '1';
       loadingBar.classList.add('opacity-100');
     }
   }, bootSequenceTimeline.loadingBarAppear);
-  
-  // Animate loading progress
+
   setTimeout(() => {
     if (loadingProgress) {
       loadingProgress.style.width = '100%';
     }
   }, bootSequenceTimeline.loadingComplete);
-  
-  // Complete boot sequence
+
   setTimeout(() => {
     if (bootAnimation) {
       bootAnimation.classList.add('opacity-0');
     }
   }, bootSequenceTimeline.bootComplete);
-  
-  // Remove boot animation from DOM and show main content
+
   setTimeout(() => {
     if (bootAnimation) {
       bootAnimation.style.display = 'none';
@@ -284,7 +333,8 @@ function closeGuide() {
 
 // Activate Guide Tab
 function activateGuideTab(tabId) {
-  // Update tab buttons
+  console.log('Activating tab:', tabId);
+
   guideTabs.forEach(tab => {
     if (tab.getAttribute('data-tab') === tabId) {
       tab.classList.add('active');
@@ -292,13 +342,14 @@ function activateGuideTab(tabId) {
       tab.classList.remove('active');
     }
   });
-  
-  // Update tab content
+
   guideContents.forEach(content => {
     if (content.getAttribute('data-tab') === tabId) {
       content.classList.add('active');
+      content.style.display = 'block';
     } else {
       content.classList.remove('active');
+      content.style.display = 'none';
     }
   });
 }
@@ -640,7 +691,7 @@ function navigateTo(hash) {
       link.classList.remove('active');
     }
   });
-  
+
   // Close sidebar on mobile after navigation
   if (window.innerWidth < 768) {
     sidebarOpen = false;
@@ -648,112 +699,259 @@ function navigateTo(hash) {
   }
 }
 
-// Generate Xbox achievement style notification
+// Show Achievement Notification
 function showAchievement(title, description) {
   // Check if achievements are disabled
-  if (localStorage.getItem('xbox-disable-achievements') === 'true') {
-    return;
-  }
+  if (localStorage.getItem('xbox-disable-achievements') === 'true') return;
   
-  // Create unique ID for this achievement to track if it's been shown
-  const achievementId = `${title}:${description}`;
-  
-  // Check if we've already shown this achievement in this session
-  if (shownAchievements.has(achievementId)) {
-    return;
-  }
-  
-  // Mark this achievement as shown
-  shownAchievements.add(achievementId);
-  
-  // Create achievement notification container if it doesn't exist
-  const achievementContainer = document.getElementById('achievement-container');
-  if (!achievementContainer) return;
-  
-  // Create the achievement element
+  // Create achievement element
   const achievementEl = document.createElement('div');
-  achievementEl.className = 'achievement-notification flex items-center bg-xbox-dark border border-xbox-gray rounded-md p-3 mb-3 transform translate-x-full opacity-0 transition-all duration-500';
-  achievementEl.style.boxShadow = '0 0 10px rgba(16, 124, 16, 0.5)';
+  achievementEl.className = 'fixed bottom-4 right-4 bg-xbox-green text-white rounded-lg p-4 shadow-lg transition-transform transform';
+  achievementEl.style.transform = 'translateY(100px)';
+  achievementEl.innerHTML = `
+    <strong class="block font-semibold">${title}</strong>
+    <span class="block text-sm">${description}</span>
+  `;
   
-  // Add achievement icon
-  const iconEl = document.createElement('div');
-  iconEl.className = 'w-10 h-10 rounded-full bg-xbox-green flex items-center justify-center mr-3 flex-shrink-0';
-  iconEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-  
-  // Achievement content
-  const contentEl = document.createElement('div');
-  contentEl.className = 'flex-1';
-  
-  // Achievement header
-  const headerEl = document.createElement('div');
-  headerEl.className = 'text-sm text-gray-400';
-  headerEl.textContent = 'Achievement Unlocked';
-  
-  // Achievement title
-  const titleEl = document.createElement('div');
-  titleEl.className = 'font-bold text-white';
-  titleEl.textContent = title;
-  
-  // Achievement description
-  const descEl = document.createElement('div');
-  descEl.className = 'text-xs text-gray-300';
-  descEl.textContent = description;
-  
-  // Add gamerscore
-  const scoreEl = document.createElement('div');
-  scoreEl.className = 'ml-2 bg-xbox-green text-white text-xs px-2 py-1 rounded flex-shrink-0 flex items-center justify-center';
-  scoreEl.textContent = '+15G';
-  
-  // Assemble the notification
-  contentEl.appendChild(headerEl);
-  contentEl.appendChild(titleEl);
-  contentEl.appendChild(descEl);
-  achievementEl.appendChild(iconEl);
-  achievementEl.appendChild(contentEl);
-  achievementEl.appendChild(scoreEl);
-  
-  // Add to container
-  achievementContainer.appendChild(achievementEl);
+  document.body.appendChild(achievementEl);
   
   // Animate in
   setTimeout(() => {
-    achievementEl.classList.add('opacity-100');
-    achievementEl.classList.remove('translate-x-full');
+    achievementEl.style.transform = 'translateY(0)';
   }, 100);
   
-  // Remove after delay
+  // Animate out and remove
   setTimeout(() => {
-    achievementEl.classList.add('translate-x-full');
-    achievementEl.classList.add('opacity-0');
-    
+    achievementEl.style.transform = 'translateY(100px)';
     setTimeout(() => {
-      achievementContainer.removeChild(achievementEl);
-    }, 500);
-  }, 5000);
-  
-  // Play sound effect (simplified)
-  try {
-    const audio = new Audio();
-    audio.play().catch(e => console.log('Audio not supported'));
-  } catch (e) {
-    console.log('Audio not supported');
-  }
+      document.body.removeChild(achievementEl);
+    }, 300);
+  }, 3000);
 }
 
-// Initialize the app when DOM is loaded
+// Ensure the boot animation is triggered on DOM content load
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM Content Loaded - Initializing Xbox Portfolio');
-  init();
+  console.log('DOM Content Loaded - Starting Boot Animation');
+  startBootAnimation();
 });
 
-// Also initialize on window load as backup
-window.addEventListener('load', () => {
-  console.log('Window Loaded - Ensuring Xbox Portfolio is ready');
-  // Double check that elements exist
-  if (!document.getElementById('xbox-boot-animation')) {
-    console.error('Boot animation element not found');
-  }
-  if (!document.getElementById('close-guide')) {
-    console.error('Close guide button not found');
-  }
-});
+// Resume Data (Mock)
+const resumeData = {
+  gameCards: [
+    {
+      title: 'Halo Infinite',
+      subtitle: 'The Master Chief returns',
+      description: 'Experience the next chapter of the legendary Halo series.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Halo+Infinite',
+      category: 'shooter',
+      route: '#halo-infinite',
+      achievements: [
+        { title: 'First Blood', description: 'Get your first kill.' },
+        { title: 'Sharpshooter', description: 'Achieve a headshot.' }
+      ]
+    },
+    {
+      title: 'Forza Horizon 5',
+      subtitle: 'Go extreme',
+      description: 'The latest installment in the Forza Horizon series.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Forza+Horizon+5',
+      category: 'racing',
+      route: '#forza-horizon-5',
+      achievements: [
+        { title: 'Speed Demon', description: 'Reach 200 mph.' },
+        { title: 'Drift King', description: 'Achieve a drift score of 100,000.' }
+      ]
+    },
+    {
+      title: 'Fable',
+      subtitle: 'A new beginning',
+      description: 'Experience the reimagining of the beloved RPG series.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Fable',
+      category: 'rpg',
+      route: '#fable',
+      achievements: [
+        { title: 'Hero\'s Welcome', description: 'Enter the world of Fable.' },
+        { title: 'Treasure Hunter', description: 'Find your first hidden treasure.' }
+      ]
+    },
+    {
+      title: 'Gears 5',
+      subtitle: 'The saga continues',
+      description: 'Join Kait Diaz as she uncovers the origins of the Locust.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Gears+5',
+      category: 'shooter',
+      route: '#gears-5',
+      achievements: [
+        { title: 'Lancer Mastery', description: 'Get 100 kills with the Lancer.' },
+        { title: 'Headshot Expert', description: 'Achieve 50 headshots in a single match.' }
+      ]
+    },
+    {
+      title: 'Sea of Thieves',
+      subtitle: 'Pirate life',
+      description: 'Embark on a pirate adventure in a shared world.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Sea+of+Thieves',
+      category: 'adventure',
+      route: '#sea-of-thieves',
+      achievements: [
+        { title: 'First Voyage', description: 'Complete your first voyage.' },
+        { title: 'Treasure Seeker', description: 'Find and return a treasure chest.' }
+      ]
+    },
+    {
+      title: 'State of Decay 2',
+      subtitle: 'Zombie survival',
+      description: 'Build a community and survive the zombie apocalypse.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=State+of+Decay+2',
+      category: 'survival',
+      route: '#state-of-decay-2',
+      achievements: [
+        { title: 'Survivor', description: 'Be the last survivor in your group.' },
+        { title: 'Builder', description: 'Construct a facility upgrade.' }
+      ]
+    },
+    {
+      title: 'The Ascent',
+      subtitle: 'Cyberpunk action',
+      description: 'Dive into the neon-lit world of The Ascent.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=The+Ascent',
+      category: 'action',
+      route: '#the-ascent',
+      achievements: [
+        { title: 'Neon Warrior', description: 'Defeat 100 enemies.' },
+        { title: 'Cyber Ninja', description: 'Perform 50 stealth takedowns.' }
+      ]
+    },
+    {
+      title: 'Psychonauts 2',
+      subtitle: 'Join the Psychonauts',
+      description: 'Help Razputin achieve his dream of becoming a Psychonaut.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Psychonauts+2',
+      category: 'platformer',
+      route: '#psychonauts-2',
+      achievements: [
+        { title: 'Mind Reader', description: 'Complete the first level.' },
+        { title: 'Memory Vault', description: 'Find a hidden memory vault.' }
+      ]
+    },
+    {
+      title: 'Halo: The Fall of Reach',
+      subtitle: 'The story begins',
+      description: 'Experience the events that lead to the Halo saga.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Halo%3A+The+Fall+of+Reach',
+      category: 'shooter',
+      route: '#halo-reach',
+      achievements: [
+        { title: 'Legend Begins', description: 'Complete the first mission.' },
+        { title: 'Covenant Killer', description: 'Defeat 50 Covenant enemies.' }
+      ]
+    },
+    {
+      title: 'Forza Motorsport 7',
+      subtitle: 'Race the world',
+      description: 'The ultimate racing experience awaits.',
+      coverImage: 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Forza+Motorsport+7',
+      category: 'racing',
+      route: '#forza-motorsport-7',
+      achievements: [
+        { title: 'Track Star', description: 'Complete a race on every track.' },
+        { title: 'Speed Freak', description: 'Achieve a lap time under 1 minute on any track.' }
+      ]
+    }
+  ],
+  projects: [
+    {
+      id: 'project-1',
+      title: 'Project Phoenix',
+      subtitle: 'Next-gen game engine',
+      date: '2023',
+      details: [
+        'Developed a high-performance game engine using C++ and DirectX 12.',
+        'Implemented advanced rendering techniques, including ray tracing and global illumination.',
+        'Optimized engine performance, achieving 120 FPS on next-gen hardware.'
+      ]
+    },
+    {
+      id: 'project-2',
+      title: 'Halo: Echoes',
+      subtitle: 'Fan-made Halo game',
+      date: '2022',
+      details: [
+        'Created a fan tribute to Halo using Unreal Engine 5.',
+        'Modeled and textured iconic Halo weapons and vehicles.',
+        'Recreated the Halo ring world environment with high detail.'
+      ]
+    },
+    {
+      id: 'project-3',
+      title: 'Forza Street',
+      subtitle: 'Mobile racing game',
+      date: '2021',
+      details: [
+        'Developed a mobile racing game with real-time multiplayer using Unity.',
+        'Integrated Xbox Live services for player authentication and leaderboards.',
+        'Designed and balanced game economy and progression systems.'
+      ]
+    }
+  ],
+  skills: [
+    {
+      id: 'skill-1',
+      title: 'Programming Languages',
+      skills: ['C++', 'C#', 'JavaScript', 'Python']
+    },
+    {
+      id: 'skill-2',
+      title: 'Game Development',
+      skills: ['Unity', 'Unreal Engine', 'Godot']
+    },
+    {
+      id: 'skill-3',
+      title: 'Web Development',
+      skills: ['HTML', 'CSS', 'React', 'Node.js']
+    },
+    {
+      id: 'skill-4',
+      title: 'Tools & Technologies',
+      skills: ['Git', 'Docker', 'Jenkins', 'Azure DevOps']
+    }
+  ],
+  experience: [
+    {
+      id: 'experience-1',
+      title: 'Senior Game Developer',
+      company: 'Xbox Game Studios',
+      period: '2020 - Present',
+      responsibilities: [
+        'Lead a team of developers in creating AAA games for Xbox and PC.',
+        'Architect and implement game systems and features.',
+        'Collaborate with designers and artists to deliver high-quality gameplay experiences.'
+      ]
+    },
+    {
+      id: 'experience-2',
+      title: 'Game Developer',
+      company: 'Riot Games',
+      period: '2018 - 2020',
+      responsibilities: [
+        'Developed and maintained game features for League of Legends.',
+        'Worked on optimizing game performance and network latency.',
+        'Participated in game design discussions and contributed to game mechanics.'
+      ]
+    },
+    {
+      id: 'experience-3',
+      title: 'Junior Game Developer',
+      company: 'Ubisoft',
+      period: '2016 - 2018',
+      responsibilities: [
+        'Assisted in the development of game levels and environments.',
+        'Implemented gameplay mechanics and AI behaviors.',
+        'Conducted playtests and gathered feedback for game improvements.'
+      ]
+    }
+  ]
+};
+
+// Start the app
+init();
