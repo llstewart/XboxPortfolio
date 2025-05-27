@@ -86,10 +86,10 @@
   </button>
 
   <!-- Xbox Guide Overlay -->
-  <div id="xbox-guide" class="hidden" style="position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); z-index: 50; display: flex; align-items: center; justify-content: center;">
+  <div id="xbox-guide" class="hidden" style="position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); z-index: 50; display: none; align-items: center; justify-content: center;">
     <div style="background: #1e1e1e; width: 90%; max-width: 800px; border-radius: 8px; overflow: hidden;">
       <div style="display: flex; border-bottom: 1px solid #2d2d2d;">
-        <button class="guide-tab-btn active" data-tab="profile" style="flex: 1; padding: 15px; background: none; border: none; color: #a0a0a0; cursor: pointer;">Profile</button>
+        <button class="guide-tab-btn active" data-tab="profile" style="flex: 1; padding: 15px; background: none; border: none; color: #107C10; cursor: pointer;">Profile</button>
         <button class="guide-tab-btn" data-tab="achievements" style="flex: 1; padding: 15px; background: none; border: none; color: #a0a0a0; cursor: pointer;">Achievements</button>
         <button class="guide-tab-btn" data-tab="settings" style="flex: 1; padding: 15px; background: none; border: none; color: #a0a0a0; cursor: pointer;">Settings</button>
       </div>
@@ -165,7 +165,7 @@
         </div>
       </div>
       
-      <div style="display: flex; justify-end; padding: 20px; border-top: 1px solid #2d2d2d;">
+      <div style="display: flex; justify-content: flex-end; padding: 20px; border-top: 1px solid #2d2d2d;">
         <button id="close-guide" class="btn">Close</button>
       </div>
     </div>
@@ -193,33 +193,26 @@
       <!-- Xbox Game Cards Grid -->
       <div style="margin-bottom: 40px;">
         <h2 class="section-title">My Games</h2>
-        
-        <div id="game-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <!-- Game cards will be dynamically generated here -->
-        </div>
+        <div id="game-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
       </div>
       
       <!-- Quick Access Section -->
       <div style="margin-top: 60px;">
         <h2 class="section-title">Quick Resume</h2>
-        
         <div class="section">
           <div class="grid grid-cols-2 md:grid-cols-4">
             <div class="quick-access-card">
               <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">Python</h3>
               <p style="font-size: 12px; color: #a0a0a0;">Programming</p>
             </div>
-            
             <div class="quick-access-card">
               <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">React.js</h3>
               <p style="font-size: 12px; color: #a0a0a0;">Frontend</p>
             </div>
-            
             <div class="quick-access-card">
               <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">SQL</h3>
               <p style="font-size: 12px; color: #a0a0a0;">Database</p>
             </div>
-            
             <div class="quick-access-card">
               <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">Docker</h3>
               <p style="font-size: 12px; color: #a0a0a0;">DevOps</p>
@@ -234,7 +227,6 @@
       <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 30px; display: flex; align-items: center;">
         <span style="margin-right: 15px;">🚀</span> Projects
       </h1>
-      
       <div id="projects-container" class="grid grid-cols-1"></div>
     </div>
     
@@ -243,7 +235,6 @@
       <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 30px; display: flex; align-items: center;">
         <span style="margin-right: 15px;">⚙️</span> Skills
       </h1>
-      
       <div id="skills-container" class="grid grid-cols-1"></div>
     </div>
     
@@ -252,7 +243,6 @@
       <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 30px; display: flex; align-items: center;">
         <span style="margin-right: 15px;">💼</span> Experience
       </h1>
-      
       <div id="experience-container"></div>
     </div>
     
@@ -261,7 +251,6 @@
       <h1 style="font-size: 32px; font-weight: bold; margin-bottom: 30px; display: flex; align-items: center;">
         <span style="margin-right: 15px;">🎓</span> Education
       </h1>
-      
       <div class="section">
         <div style="display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 20px;">
           <div>

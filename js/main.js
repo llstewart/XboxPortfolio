@@ -17,7 +17,6 @@ const xboxGuide = document.getElementById('xbox-guide');
 const closeGuideBtn = document.getElementById('close-guide');
 const guideTabs = document.querySelectorAll('.guide-tab-btn');
 const guideContents = document.querySelectorAll('.guide-tab-content');
-const pageContainer = document.getElementById('page-container');
 const filterTabs = document.querySelectorAll('.filter-tab');
 const gameCardsContainer = document.getElementById('game-cards');
 const projectsContainer = document.getElementById('projects-container');
@@ -33,9 +32,8 @@ const bootSequenceTimeline = {
   loadingBarAppear: 1500,
   loadingTextAppear: 2000,
   loadingComplete: 2500,
-  logoPulse: 4000,
-  bootComplete: 4500,
-  removeBootScreen: 5000
+  bootComplete: 4000,
+  removeBootScreen: 4500
 };
 
 // Initialize the app
@@ -44,97 +42,35 @@ function init() {
   window.location.hash = '';
   history.replaceState(null, null, window.location.pathname);
 
-  // 🔒 Force close Xbox Guide if open
+  // Force close Xbox Guide if open
   if (xboxGuide) {
     xboxGuide.classList.add('hidden');
     xboxGuide.style.display = 'none';
   }
-  // Clear any existing hash and force home page
-  window.location.hash = '';
-  history.replaceState(null, null, window.location.pathname);
-  
-  // Reset all pages and show home immediately
-  const pages = document.querySelectorAll('.page-content');
-  pages.forEach(page => page.classList.remove('active'));
-  const homePage = document.getElementById('home-page');
-  if (homePage) {
-    homePage.classList.add('active');
-  }
-  
-  // Ensure boot animation elements are visible during initialization
-  if (bootAnimation) {
-    bootAnimation.style.display = 'flex';
-    bootAnimation.style.opacity = '1';
-    bootAnimation.classList.remove('opacity-0');
+
+  // Hide main content initially
+  if (content) {
+    content.style.opacity = '0';
   }
 
-  if (bootLogo) {
-    bootLogo.style.opacity = '0';
-    bootLogo.classList.remove('opacity-100');
-  }
+  // Start boot animation
+  startBootAnimation();
 
-  if (loadingBar) {
-    loadingBar.style.opacity = '0';
-    loadingBar.classList.remove('opacity-100');
-  }
-
-  if (loadingProgress) {
-    loadingProgress.style.width = '0%';
-  }
-
-  setTimeout(() => {
-    if (bootLogo) {
-      bootLogo.style.opacity = '1';
-      bootLogo.classList.add('opacity-100');
-    }
-  }, bootSequenceTimeline.logoAppear);
-
-  setTimeout(() => {
-    if (loadingBar) {
-      loadingBar.style.opacity = '1';
-      loadingBar.classList.add('opacity-100');
-    }
-  }, bootSequenceTimeline.loadingBarAppear);
-
-  setTimeout(() => {
-    if (loadingProgress) {
-      loadingProgress.style.width = '100%';
-    }
-  }, bootSequenceTimeline.loadingComplete);
-
-  setTimeout(() => {
-    if (bootAnimation) {
-      bootAnimation.classList.add('opacity-0');
-    }
-  }, bootSequenceTimeline.bootComplete);
-
-  setTimeout(() => {
-    if (bootAnimation) {
-      bootAnimation.style.display = 'none';
-    }
-    if (content) {
-      content.style.opacity = '1';
-    }
-    console.log('Boot animation complete, showing main content');
-  }, bootSequenceTimeline.removeBootScreen);
-  
-  // Update time
-  updateTime();
-  setInterval(updateTime, 60000);
-  
-  // Set up event listeners
+  // Setup event listeners
   setupEventListeners();
-  
-  // Generate content from data
+
+  // Update time display
+  updateTime();
+  setInterval(updateTime, 1000);
+
+  // Generate dynamic content
   generateGameCards();
   generateProjects();
   generateSkills();
   generateExperience();
-  
-  // Initialize page routing after a short delay
-  setTimeout(() => {
-    handleRouting();
-  }, 100);
+
+  // Handle initial routing
+  handleRouting();
 }
 
 // Xbox Boot Animation
@@ -144,74 +80,44 @@ function startBootAnimation() {
   if (bootAnimation) {
     bootAnimation.style.display = 'flex';
     bootAnimation.style.opacity = '1';
-    bootAnimation.classList.remove('opacity-0');
   }
 
-  if (bootLogo) {
-    bootLogo.style.opacity = '0';
-    bootLogo.classList.remove('opacity-100');
-  }
-
-  if (loadingBar) {
-    loadingBar.style.opacity = '0';
-    loadingBar.classList.remove('opacity-100');
-  }
-
-  if (loadingText) {
-    loadingText.style.opacity = '0';
-    loadingText.classList.remove('opacity-100');
-  }
-
-  if (loadingProgress) {
-    loadingProgress.style.width = '0%';
-  }
+  // Reset all elements
+  if (bootLogo) bootLogo.style.opacity = '0';
+  if (loadingBar) loadingBar.style.opacity = '0';
+  if (loadingText) loadingText.style.opacity = '0';
+  if (loadingProgress) loadingProgress.style.width = '0%';
 
   // Logo appears
   setTimeout(() => {
-    if (bootLogo) {
-      bootLogo.style.opacity = '1';
-      bootLogo.classList.add('opacity-100');
-    }
+    if (bootLogo) bootLogo.style.opacity = '1';
   }, bootSequenceTimeline.logoAppear);
 
   // Loading bar appears
   setTimeout(() => {
-    if (loadingBar) {
-      loadingBar.style.opacity = '1';
-      loadingBar.classList.add('opacity-100');
-    }
+    if (loadingBar) loadingBar.style.opacity = '1';
   }, bootSequenceTimeline.loadingBarAppear);
 
   // Loading text appears
   setTimeout(() => {
-    if (loadingText) {
-      loadingText.style.opacity = '1';
-      loadingText.classList.add('opacity-100');
-    }
+    if (loadingText) loadingText.style.opacity = '1';
   }, bootSequenceTimeline.loadingTextAppear);
 
   // Loading completes
   setTimeout(() => {
-    if (loadingProgress) {
-      loadingProgress.style.width = '100%';
-    }
+    if (loadingProgress) loadingProgress.style.width = '100%';
   }, bootSequenceTimeline.loadingComplete);
 
   // Boot completes
   setTimeout(() => {
-    if (bootAnimation) {
-      bootAnimation.classList.add('opacity-0');
-    }
+    if (bootAnimation) bootAnimation.style.opacity = '0';
   }, bootSequenceTimeline.bootComplete);
 
   // Remove boot screen and show main content
   setTimeout(() => {
-    if (bootAnimation) {
-      bootAnimation.style.display = 'none';
-    }
-    if (content) {
-      content.style.opacity = '1';
-    }
+    if (bootAnimation) bootAnimation.style.display = 'none';
+    if (content) content.style.opacity = '1';
+    
     // Show welcome achievement
     showAchievement('Welcome!', 'Visited the homepage for the first time.');
     console.log('Boot animation complete, showing main content');
@@ -221,110 +127,110 @@ function startBootAnimation() {
 // Update Current Time Display
 function updateTime() {
   const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  currentTimeEl.textContent = `${hours}:${minutes}`;
+  const time = now.toLocaleTimeString('en-US', { 
+    hour: '2-digit', 
+    minute: '2-digit',
+    hour12: false 
+  });
+  if (currentTimeEl) {
+    currentTimeEl.textContent = time;
+  }
 }
 
-// Set up Event Listeners
+// Setup Event Listeners
 function setupEventListeners() {
-  // Toggle Sidebar
+  // Sidebar toggle
   if (toggleSidebarBtn) {
     toggleSidebarBtn.addEventListener('click', toggleSidebar);
   }
-  
-  // Profile Button (Open Guide)
+
+  // Profile button opens Xbox Guide
   if (profileButton) {
     profileButton.addEventListener('click', openGuide);
   }
-  
-  // Home Button (Go to Home)
+
+  // Home button navigation
   if (homeButton) {
     homeButton.addEventListener('click', () => navigateTo('#home'));
   }
-  
-  // Close Guide Button
+
+  // Close Xbox Guide
   if (closeGuideBtn) {
     closeGuideBtn.addEventListener('click', closeGuide);
   }
-  
-  // Guide Tab Buttons
+
+  // Xbox Guide background click to close
+  if (xboxGuide) {
+    xboxGuide.addEventListener('click', (e) => {
+      if (e.target === xboxGuide) {
+        closeGuide();
+      }
+    });
+  }
+
+  // Xbox Guide tabs
   guideTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const tabId = tab.getAttribute('data-tab');
       activateGuideTab(tabId);
     });
   });
-  
-  // Filter Tabs
+
+  // Filter tabs
   filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const filter = tab.getAttribute('data-filter');
       filterGameCards(filter);
       
-      // Update active state
+      // Update active tab
       filterTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
     });
   });
-  
-  // Sidebar Links - Use event delegation for better reliability
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('.sidebar-link')) {
-      const link = e.target.closest('.sidebar-link');
+
+  // Sidebar links
+  const sidebarLinks = document.querySelectorAll('.sidebar-link');
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
-        e.preventDefault();
         navigateTo(href);
+        
+        // Update active sidebar link
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        
+        // Close sidebar on mobile
+        if (window.innerWidth < 768) {
+          toggleSidebar();
+        }
       }
-    }
-  });
-  
-  // Contact Form
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      showAchievement('Message Sent!', 'Your message has been submitted successfully.');
     });
-  }
-  
-  // Keyboard Navigation
+  });
+
+  // Global keyboard shortcuts
   document.addEventListener('keydown', (e) => {
-    // Xbox Guide Button (Home key)
     if (e.key === 'Home') {
       e.preventDefault();
-      if (xboxGuide.classList.contains('hidden')) {
-        openGuide();
-      } else {
-        closeGuide();
-      }
+      openGuide();
     }
-    
-    // B Button (Escape key) - Close Guide
-    if (e.key === 'Escape' && !xboxGuide.classList.contains('hidden')) {
+    if (e.key === 'Escape' && xboxGuide && !xboxGuide.classList.contains('hidden')) {
       closeGuide();
     }
   });
-  
-  // Settings toggles
-  const bootAnimToggle = document.getElementById('boot-animation-toggle');
-  if (bootAnimToggle) {
-    bootAnimToggle.checked = localStorage.getItem('xbox-skip-boot') !== 'true';
-    bootAnimToggle.addEventListener('change', () => {
-      localStorage.setItem('xbox-skip-boot', !bootAnimToggle.checked);
-    });
-  }
-  
-  const achievementsToggle = document.getElementById('achievements-toggle');
-  if (achievementsToggle) {
-    achievementsToggle.checked = localStorage.getItem('xbox-disable-achievements') !== 'true';
-    achievementsToggle.addEventListener('change', () => {
-      localStorage.setItem('xbox-disable-achievements', !achievementsToggle.checked);
+
+  // Contact form submission
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      showAchievement('Message Sent!', 'Your contact form has been submitted.');
+      contactForm.reset();
     });
   }
 }
 
-// Sidebar Toggle
+// Toggle Sidebar
 function toggleSidebar() {
   sidebarOpen = !sidebarOpen;
   updateSidebarState();
@@ -349,8 +255,7 @@ function openGuide() {
   if (xboxGuide) {
     xboxGuide.classList.remove('hidden');
     xboxGuide.style.display = 'flex';
-    activateGuideTab('profile');
-    showAchievement('Guide Opened', 'Accessed the Xbox Guide menu!');
+    showAchievement('Guide Opened', 'Accessed the Xbox Guide interface.');
   }
 }
 
@@ -363,18 +268,20 @@ function closeGuide() {
   }
 }
 
-// Activate Guide Tab
+// Activate Xbox Guide Tab
 function activateGuideTab(tabId) {
-  console.log('Activating tab:', tabId);
-
+  // Update tab buttons
   guideTabs.forEach(tab => {
     if (tab.getAttribute('data-tab') === tabId) {
       tab.classList.add('active');
+      tab.style.color = '#107C10';
     } else {
       tab.classList.remove('active');
+      tab.style.color = '#a0a0a0';
     }
   });
 
+  // Update tab content
   guideContents.forEach(content => {
     if (content.getAttribute('data-tab') === tabId) {
       content.classList.add('active');
@@ -386,9 +293,9 @@ function activateGuideTab(tabId) {
   });
 }
 
-// Generate Game Cards for Homepage
+// Generate Game Cards
 function generateGameCards() {
-  if (!gameCardsContainer) return;
+  if (!gameCardsContainer || !resumeData.gameCards) return;
   
   gameCardsContainer.innerHTML = '';
   
@@ -398,38 +305,23 @@ function generateGameCards() {
     cardEl.setAttribute('data-category', card.category);
     
     cardEl.innerHTML = `
-      <div class="xbox-game-card relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300 shadow-md">
-        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-300" 
-             style="background-image: url('${card.coverImage || 'https://via.placeholder.com/210x280/1e1e1e/107C10?text=Xbox+Game'}');">
+      <div class="xbox-game-card">
+        <img src="${card.coverImage}" alt="${card.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div style="display: none; height: 180px; background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%); align-items: center; justify-content: center;">
+          <i class="fas fa-gamepad" style="font-size: 48px; color: #107C10;"></i>
         </div>
-        
-        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-        
-        <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
-          <h3 class="text-lg font-bold text-white mb-1">${card.title}</h3>
-          ${card.subtitle ? `<p class="text-sm text-gray-300 mb-2">${card.subtitle}</p>` : ''}
-        </div>
-        
-        <div class="absolute top-3 right-3 bg-xbox-green text-white text-xs px-2 py-1 rounded font-bold">
-          XBOX
-        </div>
-        
-        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-70 flex flex-col justify-center items-center z-10 p-4 transition-all duration-200 opacity-0 hover:opacity-100">
-          <h4 class="text-xl font-bold text-xbox-green mb-3">${card.title}</h4>
-          ${card.description ? `<p class="text-sm text-gray-300 mb-4 text-center">${card.description}</p>` : ''}
-          <div class="text-sm text-white bg-xbox-green px-4 py-2 rounded-md inline-block mt-2 font-semibold hover:bg-xbox-light-green transition-colors">
-            Launch
-          </div>
+        <div class="xbox-badge">XBOX</div>
+        <div class="card-content">
+          <h3 class="card-title">${card.title}</h3>
+          <p class="card-subtitle">${card.subtitle}</p>
         </div>
       </div>
     `;
     
-    // Add click event for navigation and achievements
+    // Add click event
     cardEl.querySelector('.xbox-game-card').addEventListener('click', () => {
-      // Show launch animation
       launchGameAnimation(card);
       
-      // Show achievement if available
       if (card.achievements && card.achievements.length > 0) {
         const achievement = card.achievements[0];
         setTimeout(() => {
@@ -437,7 +329,6 @@ function generateGameCards() {
         }, 1000);
       }
       
-      // Navigate to the route after animation completes
       setTimeout(() => {
         navigateTo(card.route);
       }, 1500);
@@ -447,13 +338,12 @@ function generateGameCards() {
   });
 }
 
-// Filter Game Cards on Homepage
+// Filter Game Cards
 function filterGameCards(filter) {
-  const cards = document.querySelectorAll('#game-cards > div');
+  const cards = gameCardsContainer.querySelectorAll('[data-category]');
   
   cards.forEach(card => {
     const category = card.getAttribute('data-category');
-    
     if (filter === 'all' || category === filter) {
       card.style.display = 'block';
     } else {
@@ -462,312 +352,179 @@ function filterGameCards(filter) {
   });
 }
 
-// Game Launch Animation
+// Launch Game Animation
 function launchGameAnimation(card) {
-  // Create overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'fixed inset-0 bg-black bg-opacity-80 z-40 flex items-center justify-center';
-  
-  overlay.innerHTML = `
-    <div class="text-center">
-      <div class="w-24 h-24 rounded-full bg-xbox-green mx-auto flex items-center justify-center animate-pulse">
-        <span class="text-white font-bold text-2xl">X</span>
-      </div>
-      <p class="text-white mt-4 text-lg">Loading ${card.title}...</p>
-    </div>
-  `;
-  
-  document.body.appendChild(overlay);
-  
-  // Remove after animation completes
-  setTimeout(() => {
-    document.body.removeChild(overlay);
-  }, 1500);
+  // Simple launch effect
+  const cardEl = document.querySelector(`[data-category="${card.category}"] .xbox-game-card`);
+  if (cardEl) {
+    cardEl.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+      cardEl.style.transform = 'scale(1)';
+    }, 300);
+  }
 }
 
 // Generate Projects
 function generateProjects() {
-  if (!projectsContainer) return;
+  if (!projectsContainer || !resumeData.projects) return;
   
   projectsContainer.innerHTML = '';
   
   resumeData.projects.forEach(project => {
     const projectEl = document.createElement('div');
-    projectEl.className = 'bg-xbox-dark rounded-lg overflow-hidden';
+    projectEl.className = 'section';
     
     projectEl.innerHTML = `
-      <div class="p-6 cursor-pointer hover:bg-xbox-gray transition-colors duration-200 flex justify-between items-start project-header" data-id="${project.id}">
-        <h2 class="text-xl font-bold text-xbox-green">${project.title}</h2>
-        <div class="flex items-center">
-          <div class="text-sm text-gray-400 mr-3">${project.date}</div>
-          <div class="transform transition-transform duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-        </div>
+      <h3 style="font-size: 20px; font-weight: bold; color: #107C10; margin-bottom: 15px;">${project.title}</h3>
+      <p style="color: #a0a0a0; margin-bottom: 15px;">${project.description}</p>
+      
+      <div style="margin-bottom: 15px;">
+        <h4 style="font-weight: bold; margin-bottom: 8px;">Key Features:</h4>
+        <ul style="list-style: none; padding-left: 0;">
+          ${project.features.map(feature => `<li style="color: #a0a0a0; margin-bottom: 5px;">• ${feature}</li>`).join('')}
+        </ul>
       </div>
       
-      <div class="p-6 pt-0 border-t border-xbox-gray animate-fadeIn project-details" data-id="${project.id}" style="display: none;">
-        ${project.subtitle ? `<p class="text-gray-300 mb-4">${project.subtitle}</p>` : ''}
-        <ul class="space-y-2 text-gray-300">
-          ${project.details.map(detail => `
-            <li class="flex">
-              <span class="text-xbox-green mr-2">•</span>
-              <span>${detail}</span>
-            </li>
-          `).join('')}
-        </ul>
+      <div style="margin-bottom: 20px;">
+        ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+      </div>
+      
+      <div style="display: flex; gap: 15px;">
+        ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> Code</a>` : ''}
+        ${project.liveUrl ? `<a href="${project.liveUrl}" target="_blank" class="btn"><i class="fas fa-external-link-alt"></i> Demo</a>` : ''}
       </div>
     `;
     
     projectsContainer.appendChild(projectEl);
   });
-  
-  // Add click event for toggling project details
-  document.querySelectorAll('.project-header').forEach(header => {
-    header.addEventListener('click', () => {
-      const projectId = header.getAttribute('data-id');
-      const detailsEl = document.querySelector(`.project-details[data-id="${projectId}"]`);
-      const arrowEl = header.querySelector('svg').parentElement;
-      
-      if (detailsEl.style.display === 'none') {
-        detailsEl.style.display = 'block';
-        arrowEl.classList.add('rotate-180');
-        
-        // Show achievement first time viewing any project
-        if (!sessionStorage.getItem('project-viewed')) {
-          sessionStorage.setItem('project-viewed', 'true');
-          showAchievement('Project Inspector', 'Examined your first project in detail!');
-        }
-      } else {
-        detailsEl.style.display = 'none';
-        arrowEl.classList.remove('rotate-180');
-      }
-    });
-  });
 }
 
 // Generate Skills
 function generateSkills() {
-  if (!skillsContainer) return;
+  if (!skillsContainer || !resumeData.skills) return;
   
   skillsContainer.innerHTML = '';
   
-  resumeData.skills.forEach(category => {
-    const categoryEl = document.createElement('div');
-    categoryEl.className = 'bg-xbox-dark rounded-lg overflow-hidden';
+  resumeData.skills.forEach(skillGroup => {
+    const skillEl = document.createElement('div');
+    skillEl.className = 'section';
     
-    categoryEl.innerHTML = `
-      <div class="p-6 cursor-pointer hover:bg-xbox-gray transition-colors duration-200 flex justify-between items-center skill-header" data-id="${category.id}">
-        <h2 class="text-xl font-bold text-xbox-green">${category.title}</h2>
-        <div class="transform transition-transform duration-200">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
-      </div>
-      
-      <div class="p-6 pt-0 border-t border-xbox-gray animate-fadeIn skill-details" data-id="${category.id}" style="display: none;">
-        <ul class="space-y-2 text-gray-300 mt-4">
-          ${category.skills.map(skill => `
-            <li class="flex items-center">
-              <span class="w-2 h-2 bg-xbox-green rounded-full mr-2"></span>
-              <span>${skill}</span>
-            </li>
-          `).join('')}
-        </ul>
+    skillEl.innerHTML = `
+      <h3 style="font-size: 20px; font-weight: bold; color: #107C10; margin-bottom: 20px;">${skillGroup.title}</h3>
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        ${skillGroup.items.map(skill => `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 500;">${skill.name}</span>
+            <div style="width: 120px; height: 8px; background: #2d2d2d; border-radius: 4px; overflow: hidden;">
+              <div class="skill-progress-fill" style="width: ${skill.proficiency}%; background: #107C10; height: 100%; border-radius: 4px;"></div>
+            </div>
+          </div>
+        `).join('')}
       </div>
     `;
     
-    skillsContainer.appendChild(categoryEl);
-  });
-  
-  // Add click event for toggling skill details
-  document.querySelectorAll('.skill-header').forEach(header => {
-    header.addEventListener('click', () => {
-      const categoryId = header.getAttribute('data-id');
-      const detailsEl = document.querySelector(`.skill-details[data-id="${categoryId}"]`);
-      const arrowEl = header.querySelector('svg').parentElement;
-      
-      if (detailsEl.style.display === 'none') {
-        detailsEl.style.display = 'block';
-        arrowEl.classList.add('rotate-180');
-        
-        // Show achievement first time viewing any skill
-        if (!sessionStorage.getItem('skill-viewed')) {
-          sessionStorage.setItem('skill-viewed', 'true');
-          showAchievement('Skill Master', 'Discovered your areas of expertise!');
-        }
-      } else {
-        detailsEl.style.display = 'none';
-        arrowEl.classList.remove('rotate-180');
-      }
-    });
+    skillsContainer.appendChild(skillEl);
   });
 }
 
 // Generate Experience
 function generateExperience() {
-  if (!experienceContainer) return;
+  if (!experienceContainer || !resumeData.experience) return;
   
   experienceContainer.innerHTML = '';
   
-  resumeData.experience.forEach(experience => {
-    const experienceEl = document.createElement('div');
-    experienceEl.className = 'bg-xbox-dark rounded-lg overflow-hidden';
+  resumeData.experience.forEach(exp => {
+    const expEl = document.createElement('div');
+    expEl.className = 'experience-item';
     
-    experienceEl.innerHTML = `
-      <div class="p-6 cursor-pointer hover:bg-xbox-gray transition-colors duration-200 experience-header" data-id="${experience.id}">
-        <div class="flex flex-col md:flex-row md:justify-between md:items-start">
-          <div>
-            <h2 class="text-xl font-bold text-xbox-green">${experience.title}</h2>
-            <h3 class="text-lg">${experience.company}</h3>
-          </div>
-          <div class="flex items-center mt-2 md:mt-0">
-            <div class="text-gray-400 mr-3">${experience.period}</div>
-            <div class="transform transition-transform duration-200">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-          </div>
+    expEl.innerHTML = `
+      <div class="experience-header" style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <h3 class="experience-title">${exp.title}</h3>
+          <h4 class="experience-company">${exp.company}</h4>
         </div>
+        <div class="experience-date">${exp.startDate} - ${exp.endDate}</div>
       </div>
       
-      <div class="p-6 pt-0 border-t border-xbox-gray animate-fadeIn experience-details" data-id="${experience.id}" style="display: none;">
-        <ul class="space-y-3 text-gray-300 mt-4">
-          ${experience.responsibilities.map(responsibility => `
-            <li class="flex">
-              <span class="text-xbox-green mr-2">•</span>
-              <span>${responsibility}</span>
-            </li>
-          `).join('')}
+      <p style="color: #a0a0a0; margin-bottom: 15px;">${exp.description}</p>
+      
+      <div style="margin-bottom: 15px;">
+        <h4 style="font-weight: bold; margin-bottom: 8px;">Key Responsibilities:</h4>
+        <ul style="list-style: none; padding-left: 0;">
+          ${exp.responsibilities.map(resp => `<li style="color: #a0a0a0; margin-bottom: 5px;">• ${resp}</li>`).join('')}
         </ul>
+      </div>
+      
+      <div>
+        ${exp.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
       </div>
     `;
     
-    experienceContainer.appendChild(experienceEl);
-  });
-  
-  // Add click event for toggling experience details
-  document.querySelectorAll('.experience-header').forEach(header => {
-    header.addEventListener('click', () => {
-      const experienceId = header.getAttribute('data-id');
-      const detailsEl = document.querySelector(`.experience-details[data-id="${experienceId}"]`);
-      const arrowEl = header.querySelector('svg').parentElement;
-      
-      if (detailsEl.style.display === 'none') {
-        detailsEl.style.display = 'block';
-        arrowEl.classList.add('rotate-180');
-        
-        // Show achievement first time viewing any experience
-        if (!sessionStorage.getItem('experience-viewed')) {
-          sessionStorage.setItem('experience-viewed', 'true');
-          showAchievement('Career Explorer', 'Discovered professional experience details!');
-        }
-      } else {
-        detailsEl.style.display = 'none';
-        arrowEl.classList.remove('rotate-180');
-      }
-    });
+    experienceContainer.appendChild(expEl);
   });
 }
 
-// Handle Page Navigation/Routing
+// Handle Routing
 function handleRouting() {
-  // Always start at home page
-  navigateTo('#home');
+  const hash = window.location.hash || '#home';
+  navigateTo(hash);
   
-  // Listen for hash changes
   window.addEventListener('hashchange', () => {
-    const hash = window.location.hash || '#home';
-    navigateTo(hash);
+    navigateTo(window.location.hash);
   });
 }
 
-// Navigate to a specific page
+// Navigate to Page
 function navigateTo(hash) {
-  const pageName = hash.substring(1) || 'home';
-  console.log('Navigating to:', pageName);
-  
-  // Hide all pages
   const pages = document.querySelectorAll('.page-content');
+  const targetPageId = hash.replace('#', '') + '-page';
+  
   pages.forEach(page => {
     page.classList.remove('active');
   });
   
-  // Show the selected page
-  const targetPage = document.getElementById(`${pageName}-page`);
+  const targetPage = document.getElementById(targetPageId);
   if (targetPage) {
     targetPage.classList.add('active');
-    
-    // Update URL hash without triggering hashchange event
-    if (hash !== window.location.hash) {
-      history.pushState(null, null, hash);
-    }
-    
-    // Show welcome achievement on first home visit
-    if (pageName === 'home' && !sessionStorage.getItem('home-visited')) {
-      sessionStorage.setItem('home-visited', 'true');
-      showAchievement('Welcome!', 'Visited the homepage for the first time.');
-    }
   }
   
-  // Update active state in sidebar
-  document.querySelectorAll('.sidebar-link').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === hash) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
-  });
-
-  // Close sidebar on mobile after navigation
-  if (window.innerWidth < 768) {
-    sidebarOpen = false;
-    updateSidebarState();
+  // Update URL
+  if (hash !== window.location.hash) {
+    history.pushState(null, null, hash);
   }
 }
 
 // Show Achievement Notification
 function showAchievement(title, description) {
-  // Check if achievements are disabled
-  if (localStorage.getItem('xbox-disable-achievements') === 'true') return;
+  const achievementKey = title + description;
+  if (shownAchievements.has(achievementKey)) return;
   
-  // Create achievement element
-  const achievementEl = document.createElement('div');
-  achievementEl.className = 'fixed bottom-4 right-4 bg-xbox-green text-white rounded-lg p-4 shadow-lg transition-transform transform';
-  achievementEl.style.transform = 'translateY(100px)';
-  achievementEl.innerHTML = `
-    <strong class="block font-semibold">${title}</strong>
-    <span class="block text-sm">${description}</span>
+  shownAchievements.add(achievementKey);
+  
+  const achievement = document.createElement('div');
+  achievement.className = 'achievement';
+  achievement.innerHTML = `
+    <div style="display: flex; align-items: start;">
+      <div style="width: 48px; height: 48px; border-radius: 50%; background: #107C10; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+        <i class="fas fa-trophy" style="color: white;"></i>
+      </div>
+      <div>
+        <h4 style="font-weight: bold; color: white;">${title}</h4>
+        <p style="font-size: 12px; color: #a0a0a0; margin-bottom: 5px;">${description}</p>
+        <div style="font-size: 12px; color: #107C10;">+15G</div>
+      </div>
+    </div>
   `;
   
-  document.body.appendChild(achievementEl);
-  
-  // Animate in
-  setTimeout(() => {
-    achievementEl.style.transform = 'translateY(0)';
-  }, 100);
-  
-  // Animate out and remove
-  setTimeout(() => {
-    achievementEl.style.transform = 'translateY(100px)';
+  const container = document.getElementById('achievement-container');
+  if (container) {
+    container.appendChild(achievement);
+    
     setTimeout(() => {
-      document.body.removeChild(achievementEl);
-    }, 300);
-  }, 3000);
+      achievement.remove();
+    }, 4000);
+  }
 }
 
-// Ensure the boot animation is triggered on DOM content load
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM Content Loaded - Starting Boot Animation');
-  startBootAnimation();
-});
-
-
-
-// Start the app
-init();
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);
