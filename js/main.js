@@ -394,26 +394,31 @@ function generateProjects() {
   
   resumeData.projects.forEach(project => {
     const projectEl = document.createElement('div');
-    projectEl.className = 'section';
+    projectEl.className = 'xbox-card';
     
     projectEl.innerHTML = `
-      <h3 style="font-size: 20px; font-weight: bold; color: #107C10; margin-bottom: 15px;">${project.title}</h3>
-      <p style="color: #a0a0a0; margin-bottom: 15px;">${project.description}</p>
-      
-      <div style="margin-bottom: 15px;">
-        <h4 style="font-weight: bold; margin-bottom: 8px;">Key Features:</h4>
-        <ul style="list-style: none; padding-left: 0;">
-          ${project.features.map(feature => `<li style="color: #a0a0a0; margin-bottom: 5px;">• ${feature}</li>`).join('')}
-        </ul>
+      <div class="xbox-card-header">
+        <div class="xbox-card-badge">PROJECT</div>
+        <h2>${project.title}</h2>
+        <p>${project.description}</p>
+        ${project.dateRange ? `<div style="color: var(--xbox-green); font-size: 12px; margin-top: 8px;">${project.dateRange}</div>` : ''}
       </div>
-      
-      <div style="margin-bottom: 20px;">
-        ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-      </div>
-      
-      <div style="display: flex; gap: 15px;">
-        ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" class="btn btn-secondary"><i class="fab fa-github"></i> Code</a>` : ''}
-        ${project.liveUrl ? `<a href="${project.liveUrl}" target="_blank" class="btn"><i class="fas fa-external-link-alt"></i> Demo</a>` : ''}
+      <div class="xbox-card-content">
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: var(--xbox-green); margin-bottom: 12px;">Key Features:</h4>
+          <ul class="project-features">
+            ${project.features.map(feature => `<li>${feature}</li>`).join('')}
+          </ul>
+        </div>
+        
+        <div class="project-tech-tags">
+          ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+        </div>
+        
+        <div class="project-links">
+          ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" class="xbox-button"><i class="fab fa-github"></i> View Code</a>` : ''}
+          ${project.liveUrl ? `<a href="${project.liveUrl}" target="_blank" class="xbox-button"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ''}
+        </div>
       </div>
     `;
     
@@ -429,16 +434,19 @@ function generateSkills() {
   
   resumeData.skills.forEach(skillGroup => {
     const skillEl = document.createElement('div');
-    skillEl.className = 'section';
+    skillEl.className = 'skill-category';
     
     skillEl.innerHTML = `
-      <h3 style="font-size: 20px; font-weight: bold; color: #107C10; margin-bottom: 20px;">${skillGroup.title}</h3>
-      <div style="display: flex; flex-direction: column; gap: 15px;">
+      <div class="xbox-card-header" style="padding: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 20px; padding-bottom: 15px;">
+        <div class="xbox-card-badge">SKILLS</div>
+        <h2 style="margin: 0;">${skillGroup.title}</h2>
+      </div>
+      <div class="skills-list">
         ${skillGroup.items.map(skill => `
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 500;">${skill.name}</span>
-            <div style="width: 120px; height: 8px; background: #2d2d2d; border-radius: 4px; overflow: hidden;">
-              <div class="skill-progress-fill" style="width: ${skill.proficiency}%; background: #107C10; height: 100%; border-radius: 4px;"></div>
+          <div class="skill-item">
+            <span class="skill-name">${skill.name}</span>
+            <div class="skill-bar-container">
+              <div class="skill-bar" style="width: ${skill.proficiency}%;"></div>
             </div>
           </div>
         `).join('')}
@@ -460,24 +468,25 @@ function generateExperience() {
     expEl.className = 'experience-item';
     
     expEl.innerHTML = `
-      <div class="experience-header" style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+      <div class="experience-header">
         <div>
           <h3 class="experience-title">${exp.title}</h3>
           <h4 class="experience-company">${exp.company}</h4>
+          <div class="experience-location">${exp.location}</div>
         </div>
         <div class="experience-date">${exp.startDate} - ${exp.endDate}</div>
       </div>
       
-      <p style="color: #a0a0a0; margin-bottom: 15px;">${exp.description}</p>
+      <div class="experience-description">${exp.description}</div>
       
-      <div style="margin-bottom: 15px;">
-        <h4 style="font-weight: bold; margin-bottom: 8px;">Key Responsibilities:</h4>
-        <ul style="list-style: none; padding-left: 0;">
-          ${exp.responsibilities.map(resp => `<li style="color: #a0a0a0; margin-bottom: 5px;">• ${resp}</li>`).join('')}
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: var(--xbox-green); margin-bottom: 15px;">Key Responsibilities:</h4>
+        <ul class="experience-responsibilities">
+          ${exp.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
         </ul>
       </div>
       
-      <div>
+      <div class="project-tech-tags">
         ${exp.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
       </div>
     `;

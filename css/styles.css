@@ -468,6 +468,451 @@ body {
   opacity: 0.8;
 }
 
+/* Xbox Page Styles for All Sections */
+.xbox-page {
+  min-height: 100vh;
+  position: relative;
+  padding: 20px;
+}
+
+.xbox-page-header {
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.xbox-breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: var(--text-gray);
+}
+
+.breadcrumb-item {
+  color: var(--text-gray);
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item.active {
+  color: var(--xbox-green);
+}
+
+.breadcrumb-separator {
+  margin: 0 10px;
+  color: var(--text-gray);
+}
+
+.xbox-page-title {
+  display: flex;
+  align-items: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.xbox-icon {
+  font-size: 40px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: var(--xbox-green);
+  border-radius: 50%;
+}
+
+.xbox-page-subtitle {
+  font-size: 16px;
+  color: var(--text-gray);
+  margin-left: 80px;
+}
+
+.xbox-content-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* Xbox Card Styles */
+.xbox-card {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.xbox-card:hover {
+  border-color: var(--xbox-green);
+  box-shadow: 0 8px 32px rgba(16, 124, 16, 0.3);
+  transform: translateY(-2px);
+}
+
+.xbox-card-header {
+  padding: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.xbox-card-badge {
+  background: var(--xbox-green);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.xbox-card-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.xbox-card-header h3 {
+  font-size: 18px;
+  color: var(--xbox-green);
+  margin-bottom: 10px;
+}
+
+.xbox-card-header p {
+  color: var(--text-gray);
+  font-size: 14px;
+}
+
+.xbox-card-content {
+  padding: 25px;
+}
+
+/* Projects Styles */
+.xbox-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.project-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.tech-tag {
+  background: rgba(16, 124, 16, 0.2);
+  border: 1px solid var(--xbox-green);
+  color: var(--xbox-green);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.project-features {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.project-features li {
+  color: var(--text-gray);
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.project-features li:before {
+  content: '▶';
+  color: var(--xbox-green);
+  position: absolute;
+  left: 0;
+  font-size: 10px;
+}
+
+.project-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Skills Styles */
+.xbox-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.skill-category {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skill-name {
+  font-weight: 500;
+  color: white;
+}
+
+.skill-bar-container {
+  width: 120px;
+  height: 8px;
+  background: var(--xbox-gray);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--xbox-green) 0%, var(--xbox-light-green) 100%);
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+/* Experience Styles */
+.xbox-experience-timeline {
+  position: relative;
+}
+
+.experience-item {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-bottom: 30px;
+  padding: 30px;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.experience-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--xbox-green);
+  margin-bottom: 5px;
+}
+
+.experience-company {
+  font-size: 18px;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.experience-location {
+  font-size: 14px;
+  color: var(--text-gray);
+}
+
+.experience-date {
+  background: var(--xbox-green);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.experience-description {
+  color: var(--text-gray);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.experience-responsibilities {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.experience-responsibilities li {
+  color: var(--text-gray);
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.experience-responsibilities li:before {
+  content: '✓';
+  color: var(--xbox-green);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* Contact Styles */
+.xbox-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.contact-method:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--xbox-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  color: white;
+  font-size: 18px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-label {
+  font-size: 12px;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.contact-value {
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+}
+
+/* Xbox Form Styles */
+.xbox-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.xbox-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.xbox-label {
+  font-size: 14px;
+  color: var(--xbox-green);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.xbox-input, .xbox-textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.xbox-input:focus, .xbox-textarea:focus {
+  outline: none;
+  border-color: var(--xbox-green);
+  box-shadow: 0 0 0 2px rgba(16, 124, 16, 0.3);
+}
+
+.xbox-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.xbox-button {
+  background: var(--xbox-green);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 15px 25px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.xbox-button:hover {
+  background: var(--xbox-light-green);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 124, 16, 0.4);
+}
+
+@media (max-width: 768px) {
+  .xbox-contact-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .xbox-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .xbox-skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .xbox-page-title {
+    font-size: 28px;
+  }
+  
+  .xbox-page-subtitle {
+    margin-left: 60px;
+  }
+}
+
 .user-profile-section {
   display: flex;
   align-items: center;
