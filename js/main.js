@@ -311,6 +311,10 @@ function generateGameCards() {
           <i class="fas fa-gamepad" style="font-size: 48px; color: #107C10;"></i>
         </div>
         <div class="xbox-badge">XBOX</div>
+        <div class="launch-overlay">
+          <div class="launch-text">Launch Game</div>
+          <div class="launch-button">Start ${card.title}</div>
+        </div>
         <div class="card-content">
           <h3 class="card-title">${card.title}</h3>
           <p class="card-subtitle">${card.subtitle}</p>
@@ -354,7 +358,18 @@ function filterGameCards(filter) {
 
 // Launch Game Animation
 function launchGameAnimation(card) {
-  // Simple launch effect
+  // Create launching overlay
+  const launchingOverlay = document.createElement('div');
+  launchingOverlay.className = 'launching-animation';
+  launchingOverlay.innerHTML = `
+    <div class="launching-spinner"></div>
+    <div class="launching-text">Launching ${card.title}...</div>
+    <div style="font-size: 14px; color: #a0a0a0;">Please wait</div>
+  `;
+  
+  document.body.appendChild(launchingOverlay);
+  
+  // Card launch effect
   const cardEl = document.querySelector(`[data-category="${card.category}"] .xbox-game-card`);
   if (cardEl) {
     cardEl.style.transform = 'scale(1.1)';
@@ -362,6 +377,13 @@ function launchGameAnimation(card) {
       cardEl.style.transform = 'scale(1)';
     }, 300);
   }
+  
+  // Remove launching overlay after animation
+  setTimeout(() => {
+    if (launchingOverlay && launchingOverlay.parentNode) {
+      launchingOverlay.remove();
+    }
+  }, 1400);
 }
 
 // Generate Projects
