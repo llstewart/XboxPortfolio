@@ -6,6 +6,7 @@ const bootAnimation = document.getElementById('xbox-boot-animation');
 const bootLogo = document.getElementById('xbox-logo');
 const loadingBar = document.getElementById('loading-bar');
 const loadingProgress = document.getElementById('loading-progress');
+const loadingText = document.getElementById('loading-text');
 const sidebar = document.getElementById('xbox-sidebar');
 const toggleSidebarBtn = document.getElementById('toggle-sidebar');
 const content = document.getElementById('content');
@@ -31,10 +32,11 @@ updateSidebarState();
 const bootSequenceTimeline = {
   logoAppear: 500,
   loadingBarAppear: 1500,
-  loadingComplete: 2000,
+  loadingTextAppear: 2000,
+  loadingComplete: 2500,
   logoPulse: 4000,
-  bootComplete: 5000,
-  removeBootScreen: 5500
+  bootComplete: 4500,
+  removeBootScreen: 5000
 };
 
 // Initialize the app
@@ -156,10 +158,16 @@ function startBootAnimation() {
     loadingBar.classList.remove('opacity-100');
   }
 
+  if (loadingText) {
+    loadingText.style.opacity = '0';
+    loadingText.classList.remove('opacity-100');
+  }
+
   if (loadingProgress) {
     loadingProgress.style.width = '0%';
   }
 
+  // Logo appears
   setTimeout(() => {
     if (bootLogo) {
       bootLogo.style.opacity = '1';
@@ -167,6 +175,7 @@ function startBootAnimation() {
     }
   }, bootSequenceTimeline.logoAppear);
 
+  // Loading bar appears
   setTimeout(() => {
     if (loadingBar) {
       loadingBar.style.opacity = '1';
@@ -174,18 +183,29 @@ function startBootAnimation() {
     }
   }, bootSequenceTimeline.loadingBarAppear);
 
+  // Loading text appears
+  setTimeout(() => {
+    if (loadingText) {
+      loadingText.style.opacity = '1';
+      loadingText.classList.add('opacity-100');
+    }
+  }, bootSequenceTimeline.loadingTextAppear);
+
+  // Loading completes
   setTimeout(() => {
     if (loadingProgress) {
       loadingProgress.style.width = '100%';
     }
   }, bootSequenceTimeline.loadingComplete);
 
+  // Boot completes
   setTimeout(() => {
     if (bootAnimation) {
       bootAnimation.classList.add('opacity-0');
     }
   }, bootSequenceTimeline.bootComplete);
 
+  // Remove boot screen and show main content
   setTimeout(() => {
     if (bootAnimation) {
       bootAnimation.style.display = 'none';
@@ -193,6 +213,8 @@ function startBootAnimation() {
     if (content) {
       content.style.opacity = '1';
     }
+    // Show welcome achievement
+    showAchievement('Welcome!', 'Visited the homepage for the first time.');
     console.log('Boot animation complete, showing main content');
   }, bootSequenceTimeline.removeBootScreen);
 }
