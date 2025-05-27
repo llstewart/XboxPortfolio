@@ -172,87 +172,53 @@
   <main id="content">
     <!-- Home Page -->
     <div id="home-page" class="page-content active xbox-dashboard">
-      <!-- Xbox Dashboard Background -->
-      <div class="dashboard-bg"></div>
+      <!-- Xbox Dashboard Background with Cosmic Scene -->
+      <div class="dashboard-bg">
+        <div class="cosmic-particles"></div>
+        <div class="cosmic-creature"></div>
+      </div>
       
-      <!-- User Profile Section -->
-      <div class="user-profile-section">
-        <div class="profile-avatar">LS</div>
-        <div class="profile-info">
-          <h1 class="profile-name">Lincoln Stewart</h1>
-          <div class="profile-status">
-            <span class="status-indicator"></span>
-            <span class="status-text">Online • Software Engineer</span>
+      <!-- Xbox Dashboard Content -->
+      <div class="dashboard-container">
+        <!-- Featured Large Game Card (Top Row) -->
+        <div class="featured-game-card" onclick="navigateTo('#experience')">
+          <div class="featured-game-content">
+            <div class="featured-badge">FEATURED</div>
+            <h2>Professional Experience</h2>
+            <p>Oshkosh Corporation Journey</p>
+            <div class="featured-play-btn">▶ Continue</div>
           </div>
         </div>
-        <div class="profile-stats">
-          <div class="stat-item">
-            <div class="stat-value">18294</div>
-            <div class="stat-label">Gamerscore</div>
+        
+        <!-- Main Game Grid (Exactly like Xbox layout) -->
+        <div class="xbox-main-grid">
+          <!-- Top Row - Primary Games -->
+          <div class="game-row-top">
+            <div id="game-cards" class="xbox-game-grid-main"></div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">5</div>
-            <div class="stat-label">Achievements</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Filter tabs -->
-      <div class="xbox-tabs">
-        <button class="filter-tab active" data-filter="all">All Games</button>
-        <button class="filter-tab" data-filter="skills">Skills</button>
-        <button class="filter-tab" data-filter="experience">Experience</button>
-        <button class="filter-tab" data-filter="projects">Projects</button>
-      </div>
-      
-      <!-- Recently Played Section -->
-      <div class="dashboard-section">
-        <h2 class="dashboard-title">Recently Played</h2>
-        <div class="featured-card">
-          <div class="featured-content">
-            <h3>Professional Experience</h3>
-            <p>Continue your career journey</p>
-            <div class="play-button">Continue</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Main Game Library -->
-      <div class="dashboard-section">
-        <h2 class="dashboard-title">My Games</h2>
-        <div id="game-cards" class="xbox-game-grid"></div>
-      </div>
-      
-      <!-- Quick Resume Section -->
-      <div class="dashboard-section">
-        <h2 class="dashboard-title">Quick Resume</h2>
-        <div class="quick-resume-grid">
-          <div class="quick-resume-card">
-            <div class="quick-icon">🐍</div>
-            <div class="quick-info">
-              <h4>Python</h4>
-              <p>Programming</p>
+          
+          <!-- Bottom Row - Secondary Cards -->
+          <div class="game-row-bottom">
+            <div class="utility-card audio-card">
+              <div class="utility-icon">🎧</div>
+              <div class="utility-content">
+                <h4>Choose your audio while coding</h4>
+              </div>
             </div>
-          </div>
-          <div class="quick-resume-card">
-            <div class="quick-icon">⚛️</div>
-            <div class="quick-info">
-              <h4>React.js</h4>
-              <p>Frontend</p>
+            
+            <div class="utility-card gamepass-card">
+              <div class="gamepass-badge">🎮 TECH STACK</div>
+              <div class="utility-content">
+                <h4>Explore Lincoln's Skills</h4>
+              </div>
             </div>
-          </div>
-          <div class="quick-resume-card">
-            <div class="quick-icon">🏭</div>
-            <div class="quick-info">
-              <h4>Ignition SCADA</h4>
-              <p>Industrial</p>
-            </div>
-          </div>
-          <div class="quick-resume-card">
-            <div class="quick-icon">☁️</div>
-            <div class="quick-info">
-              <h4>Azure SDK</h4>
-              <p>Cloud</p>
+            
+            <div class="utility-card controller-card">
+              <div class="controller-image">🎮</div>
+              <div class="utility-content">
+                <h4>Find your Elite</h4>
+                <p>Contact Lincoln</p>
+              </div>
             </div>
           </div>
         </div>
