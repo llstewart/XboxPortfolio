@@ -187,14 +187,14 @@ function setupEventListeners() {
       tab.classList.add('active');
     });
   });
-
   // Sidebar links
   const sidebarLinks = document.querySelectorAll('.sidebar-link');
   sidebarLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      e.preventDefault();
       const href = link.getAttribute('href');
+      // Only prevent default for internal navigation
       if (href && href.startsWith('#')) {
+        e.preventDefault();
         navigateTo(href);
         
         // Update active sidebar link
@@ -206,6 +206,7 @@ function setupEventListeners() {
           toggleSidebar();
         }
       }
+      // External links (GitHub, LinkedIn) will use their default behavior
     });
   });
 
