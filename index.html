@@ -172,24 +172,33 @@
   <main id="content">
     <!-- Home Page -->
     <div id="home-page" class="page-content active xbox-dashboard">
-      <!-- Xbox Dashboard Background with Cosmic Scene -->
-      <div class="dashboard-bg">
-        <div class="cosmic-particles"></div>
-        <div class="cosmic-creature"></div>
-      </div>
-      
-      <!-- Xbox Dashboard Content -->
-      <div class="dashboard-container">
-        <!-- Featured Large Game Card (Top Row) -->
-        <div class="featured-game-card" onclick="navigateTo('#experience')">
-          <div class="featured-game-content">
-            <div class="featured-badge">FEATURED</div>
-            <h2>Professional Experience</h2>
-            <p>Oshkosh Corporation Journey</p>
-            <div class="featured-play-btn">▶ Continue</div>
+      <!-- Xbox Hero Background Image -->
+      <div class="xbox-hero-section">
+        <div class="hero-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-game-title">
+            <h1>The Professional Journey</h1>
+            <div class="hero-stats">
+              <div class="stat">
+                <span class="stat-label">This Role</span>
+                <span class="stat-value">64h 21m</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Progress</span>
+                <span class="stat-value">98%</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">Last achievement</span>
+                <span class="stat-value">Software Engineer</span>
+              </div>
+            </div>
           </div>
         </div>
-        
+      </div>
+
+      <!-- Xbox Dashboard Content - Positioned Lower -->
+      <div class="dashboard-container">
         <!-- Main Game Grid (Exactly like Xbox layout) -->
         <div class="xbox-main-grid">
           <!-- Top Row - Primary Games -->
@@ -199,27 +208,43 @@
           
           <!-- Bottom Row - Secondary Cards -->
           <div class="game-row-bottom">
-            <div class="utility-card audio-card">
+            <div class="utility-card audio-card" onclick="navigateTo('#skills')">
               <div class="utility-icon">🎧</div>
               <div class="utility-content">
                 <h4>Choose your audio while coding</h4>
               </div>
             </div>
             
-            <div class="utility-card gamepass-card">
+            <div class="utility-card gamepass-card" onclick="navigateTo('#skills')">
               <div class="gamepass-badge">🎮 TECH STACK</div>
               <div class="utility-content">
                 <h4>Explore Lincoln's Skills</h4>
               </div>
             </div>
             
-            <div class="utility-card controller-card">
+            <div class="utility-card controller-card" onclick="navigateTo('#contact')">
               <div class="controller-image">🎮</div>
               <div class="utility-content">
                 <h4>Find your Elite</h4>
                 <p>Contact Lincoln</p>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Additional Xbox-style Actions -->
+        <div class="xbox-actions-row">
+          <div class="action-item">
+            <i class="fas fa-plus" style="margin-right: 8px;"></i>
+            More options
+          </div>
+          <div class="action-item">
+            <i class="fas fa-search" style="margin-right: 8px;"></i>
+            Search
+          </div>
+          <div class="action-item">
+            <i class="fas fa-download" style="margin-right: 8px;"></i>
+            Add to play later
           </div>
         </div>
       </div>

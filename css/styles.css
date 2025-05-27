@@ -332,19 +332,87 @@ body {
   padding: 20px;
 }
 
+/* Xbox Hero Section */
+.xbox-hero-section {
+  position: relative;
+  height: 50vh;
+  min-height: 400px;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'),
+    linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #5c6bc0 100%);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7) contrast(1.2);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(16, 124, 16, 0.2) 100%);
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px;
+  background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.hero-game-title h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+}
+
 .dashboard-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23e6f3ff;stop-opacity:1" /><stop offset="50%" style="stop-color:%2399d6ff;stop-opacity:1" /><stop offset="100%" style="stop-color:%23336699;stop-opacity:1" /></linearGradient></defs><rect width="1920" height="1080" fill="url(%23sky)"/><polygon points="0,800 400,700 800,750 1200,650 1600,700 1920,600 1920,1080 0,1080" fill="%234d4d4d" opacity="0.8"/><polygon points="200,900 600,800 1000,850 1400,750 1800,800 1920,750 1920,1080 0,1080" fill="%23666666" opacity="0.6"/><circle cx="1600" cy="200" r="80" fill="%23ffffff" opacity="0.1"/><circle cx="300" cy="300" r="40" fill="%23ffffff" opacity="0.08"/><circle cx="1200" cy="150" r="60" fill="%23ffffff" opacity="0.06"/></svg>'),
-    radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.2) 0%, transparent 70%),
-    radial-gradient(ellipse at 80% 30%, rgba(75, 0, 130, 0.3) 0%, transparent 70%),
-    linear-gradient(135deg, #0a0a1e 0%, #1a0d2e 25%, #16213e 50%, #0f3460 75%, #1e1a3a 100%);
-  background-size: cover, cover, 100% 100%, 100% 100%, 100% 100%;
+  background: linear-gradient(135deg, #0a0a1e 0%, #1a0d2e 25%, #16213e 50%, #0f3460 75%, #1e1a3a 100%);
   z-index: -1;
 }
 
@@ -372,6 +440,7 @@ body {
   z-index: 1;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 40px;
 }
 
 .featured-game-card {
@@ -515,6 +584,33 @@ body {
 .utility-content p {
   font-size: 12px;
   opacity: 0.8;
+}
+
+/* Xbox Actions Row */
+.xbox-actions-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  color: #a0a0a0;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.action-item:hover {
+  color: var(--xbox-green);
+  background: rgba(16, 124, 16, 0.1);
 }
 
 /* Xbox Page Styles for All Sections */
