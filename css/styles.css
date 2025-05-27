@@ -56,76 +56,122 @@ body {
 }
 
 .xbox-orb {
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle, #107C10 0%, #0a5c0a 100%);
+  width: 180px;
+  height: 180px;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(circle, #107C10 0%, #0d6b0d 50%, #0a5c0a 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 50px rgba(16, 124, 16, 0.8);
+  box-shadow: 
+    0 0 60px rgba(16, 124, 16, 0.9),
+    inset 0 0 30px rgba(255, 255, 255, 0.1),
+    0 0 120px rgba(16, 124, 16, 0.6);
   animation: xboxPulse 2s ease-in-out infinite;
   position: relative;
-  overflow: hidden;
+  border: 2px solid rgba(16, 124, 16, 0.8);
 }
 
 .xbox-orb::before {
   content: '';
   position: absolute;
-  top: 20px;
-  left: 40px;
-  width: 60px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.3);
+  top: 25px;
+  left: 45px;
+  width: 70px;
+  height: 40px;
+  background: 
+    radial-gradient(ellipse, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
   border-radius: 50%;
-  filter: blur(10px);
+  filter: blur(8px);
+  transform: rotate(-15deg);
+}
+
+.xbox-orb::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  right: 35px;
+  width: 30px;
+  height: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  filter: blur(6px);
 }
 
 .orb-letter {
-  font-size: 80px;
-  font-weight: bold;
+  font-size: 85px;
+  font-weight: 700;
   color: white;
-  font-family: 'Segoe UI', sans-serif;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  z-index: 1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 
+    0 0 30px rgba(255, 255, 255, 0.8),
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(16, 124, 16, 0.8);
+  z-index: 2;
+  position: relative;
+  letter-spacing: -2px;
 }
 
 @keyframes xboxPulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 50px rgba(16, 124, 16, 0.8);
+    box-shadow: 
+      0 0 60px rgba(16, 124, 16, 0.9),
+      inset 0 0 30px rgba(255, 255, 255, 0.1),
+      0 0 120px rgba(16, 124, 16, 0.6);
   }
   50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 80px rgba(16, 124, 16, 1);
+    transform: scale(1.08);
+    box-shadow: 
+      0 0 80px rgba(16, 124, 16, 1),
+      inset 0 0 40px rgba(255, 255, 255, 0.15),
+      0 0 150px rgba(16, 124, 16, 0.8);
   }
 }
 
 #loading-bar {
-  width: 320px;
-  height: 4px;
-  background: #333;
-  border-radius: 2px;
-  margin-top: 30px;
+  width: 400px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 40px;
   opacity: 0;
   transition: opacity 1s ease-in-out;
   overflow: hidden;
+  border: 1px solid rgba(16, 124, 16, 0.3);
 }
 
 #loading-progress {
   height: 100%;
-  background: var(--xbox-green);
+  background: linear-gradient(90deg, #107C10 0%, #13a513 50%, #107C10 100%);
   width: 0;
-  border-radius: 2px;
+  border-radius: 3px;
   transition: width 2s ease-out;
+  box-shadow: 0 0 20px rgba(16, 124, 16, 0.8);
+  animation: progressGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes progressGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(16, 124, 16, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(16, 124, 16, 1);
+  }
 }
 
 #loading-text {
-  margin-top: 20px;
+  margin-top: 25px;
   color: var(--text-white);
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 500;
   opacity: 0;
   transition: opacity 1s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 /* Header */
@@ -293,10 +339,12 @@ body {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 30%, rgba(75, 0, 130, 0.5) 0%, transparent 60%),
-    radial-gradient(ellipse at 40% 80%, rgba(25, 25, 112, 0.4) 0%, transparent 60%),
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23e6f3ff;stop-opacity:1" /><stop offset="50%" style="stop-color:%2399d6ff;stop-opacity:1" /><stop offset="100%" style="stop-color:%23336699;stop-opacity:1" /></linearGradient></defs><rect width="1920" height="1080" fill="url(%23sky)"/><polygon points="0,800 400,700 800,750 1200,650 1600,700 1920,600 1920,1080 0,1080" fill="%234d4d4d" opacity="0.8"/><polygon points="200,900 600,800 1000,850 1400,750 1800,800 1920,750 1920,1080 0,1080" fill="%23666666" opacity="0.6"/><circle cx="1600" cy="200" r="80" fill="%23ffffff" opacity="0.1"/><circle cx="300" cy="300" r="40" fill="%23ffffff" opacity="0.08"/><circle cx="1200" cy="150" r="60" fill="%23ffffff" opacity="0.06"/></svg>'),
+    radial-gradient(ellipse at 20% 50%, rgba(138, 43, 226, 0.2) 0%, transparent 70%),
+    radial-gradient(ellipse at 80% 30%, rgba(75, 0, 130, 0.3) 0%, transparent 70%),
     linear-gradient(135deg, #0a0a1e 0%, #1a0d2e 25%, #16213e 50%, #0f3460 75%, #1e1a3a 100%);
+  background-size: cover, cover, 100% 100%, 100% 100%, 100% 100%;
   z-index: -1;
 }
 
@@ -391,16 +439,17 @@ body {
 }
 
 .game-row-top {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
-  overflow-x: auto;
-  padding-bottom: 10px;
+  max-width: 100%;
 }
 
 .xbox-game-grid-main {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
-  min-width: max-content;
+  width: 100%;
 }
 
 .game-row-bottom {
@@ -1084,7 +1133,9 @@ body {
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
-  height: 280px;
+  height: 220px;
+  width: 100%;
+  max-width: 180px;
   position: relative;
   border: 2px solid transparent;
 }
@@ -1138,7 +1189,7 @@ body {
 
 .xbox-game-card img {
   width: 100%;
-  height: 180px;
+  height: 140px;
   object-fit: cover;
 }
 
