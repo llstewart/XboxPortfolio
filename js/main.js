@@ -36,12 +36,41 @@ const bootSequenceTimeline = {
   removeBootScreen: 4500
 };
 
+// Update Role Timer
+function updateRoleTimer() {
+  const roleHoursEl = document.getElementById('role-hours');
+  const roleMinutesEl = document.getElementById('role-minutes');
+  const roleSecondsEl = document.getElementById('role-seconds');
+  
+  if (!roleHoursEl || !roleMinutesEl || !roleSecondsEl) return;
+  
+  // Start date: June 1, 2022
+  const startDate = new Date(2022, 5, 1); // Month is 0-based, so 5 = June
+  
+  function updateTime() {
+    const now = new Date();
+    const diff = now - startDate;
+    
+    // Calculate hours, minutes, seconds
+    const totalHours = Math.floor(diff / (1000 * 60 * 60));
+    const totalMinutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const totalSeconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    // Format with commas for thousands
+    const formattedHours = totalHours.toLocaleString('en-US');
+    
+    roleHoursEl.textContent = formattedHours;
+    roleMinutesEl.textContent = totalMinutes.toString().padStart(2, '0');
+    roleSecondsEl.textContent = totalSeconds.toString().padStart(2, '0');
+  }
+  
+  // Update immediately and then every second
+  updateTime();
+  setInterval(updateTime, 1000);
+}
+
 // Initialize the app
 function init() {
-  // Clear any existing hash and force home page
-  window.location.hash = '';
-  history.replaceState(null, null, window.location.pathname);
-
   // Force close Xbox Guide if open
   if (xboxGuide) {
     xboxGuide.classList.add('hidden');
@@ -53,8 +82,15 @@ function init() {
     content.style.opacity = '0';
   }
 
-  // Start boot animation
-  startBootAnimation();
+  // Start boot animation if it exists
+  if (bootAnimation) {
+    startBootAnimation();
+  } else {
+    // If no boot animation, show content immediately
+    if (content) {
+      content.style.opacity = '1';
+    }
+  }
 
   // Setup event listeners
   setupEventListeners();
@@ -63,172 +99,102 @@ function init() {
   updateTime();
   setInterval(updateTime, 1000);
 
-  // Generate dynamic content
-  generateGameCards();
-  generateProjects();
-  generateSkills();
-  generateExperience();
+  // Update role timer
+  updateRoleTimer();
 
-  // Handle initial routing
-  handleRouting();
+  // Generate dynamic content based on current page
+  if (gameCardsContainer) generateGameCards();
+  if (projectsContainer) generateProjects();
+  if (skillsContainer) generateSkills();
+  if (experienceContainer) generateExperience();
 }
 
-// Xbox Boot Animation
+// Start Boot Animation
 function startBootAnimation() {
-  console.log('Starting Xbox boot animation');
+  if (!bootAnimation) return;
 
-  if (bootAnimation) {
-    bootAnimation.style.display = 'flex';
-    bootAnimation.style.opacity = '1';
-  }
-
-  // Reset all elements
-  if (bootLogo) bootLogo.style.opacity = '0';
-  if (loadingBar) loadingBar.style.opacity = '0';
-  if (loadingText) loadingText.style.opacity = '0';
-  if (loadingProgress) loadingProgress.style.width = '0%';
-
-  // Logo appears
   setTimeout(() => {
-    if (bootLogo) bootLogo.style.opacity = '1';
+    bootLogo.style.opacity = '1';
   }, bootSequenceTimeline.logoAppear);
 
-  // Loading bar appears
   setTimeout(() => {
-    if (loadingBar) loadingBar.style.opacity = '1';
+    loadingBar.style.opacity = '1';
   }, bootSequenceTimeline.loadingBarAppear);
 
-  // Loading text appears
   setTimeout(() => {
-    if (loadingText) loadingText.style.opacity = '1';
+    loadingText.style.opacity = '1';
   }, bootSequenceTimeline.loadingTextAppear);
 
-  // Loading completes
   setTimeout(() => {
-    if (loadingProgress) loadingProgress.style.width = '100%';
+    loadingProgress.style.width = '100%';
   }, bootSequenceTimeline.loadingComplete);
 
-  // Boot completes
   setTimeout(() => {
-    if (bootAnimation) bootAnimation.style.opacity = '0';
+    bootAnimation.style.opacity = '0';
   }, bootSequenceTimeline.bootComplete);
 
-  // Remove boot screen and show main content
   setTimeout(() => {
-    if (bootAnimation) bootAnimation.style.display = 'none';
-    if (content) content.style.opacity = '1';
-    
-    // Show welcome achievement
-    showAchievement('Welcome!', 'Visited the homepage for the first time.');
-    console.log('Boot animation complete, showing main content');
+    bootAnimation.style.display = 'none';
+    if (content) {
+      content.style.opacity = '1';
+    }
   }, bootSequenceTimeline.removeBootScreen);
-}
-
-// Update Current Time Display
-function updateTime() {
-  const now = new Date();
-  const time = now.toLocaleTimeString('en-US', { 
-    hour: '2-digit', 
-    minute: '2-digit',
-    hour12: false 
-  });
-  if (currentTimeEl) {
-    currentTimeEl.textContent = time;
-  }
 }
 
 // Setup Event Listeners
 function setupEventListeners() {
-  // Sidebar toggle
   if (toggleSidebarBtn) {
     toggleSidebarBtn.addEventListener('click', toggleSidebar);
   }
 
-  // Profile button opens Xbox Guide
   if (profileButton) {
     profileButton.addEventListener('click', openGuide);
   }
 
-  // Home button navigation
   if (homeButton) {
-    homeButton.addEventListener('click', () => navigateTo('#home'));
+    homeButton.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
   }
 
-  // Close Xbox Guide
   if (closeGuideBtn) {
     closeGuideBtn.addEventListener('click', closeGuide);
   }
 
-  // Xbox Guide background click to close
-  if (xboxGuide) {
-    xboxGuide.addEventListener('click', (e) => {
-      if (e.target === xboxGuide) {
-        closeGuide();
-      }
+  if (guideTabs) {
+    guideTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+        activateGuideTab(tabId);
+      });
     });
   }
 
-  // Xbox Guide tabs
-  guideTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const tabId = tab.getAttribute('data-tab');
-      activateGuideTab(tabId);
-    });
-  });
-
-  // Filter tabs
-  filterTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const filter = tab.getAttribute('data-filter');
-      filterGameCards(filter);
-      
-      // Update active tab
-      filterTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-    });
-  });
-  // Sidebar links
-  const sidebarLinks = document.querySelectorAll('.sidebar-link');
-  sidebarLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      // Only prevent default for internal navigation
-      if (href && href.startsWith('#')) {
-        e.preventDefault();
-        navigateTo(href);
+  if (filterTabs) {
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const filter = tab.getAttribute('data-filter');
+        filterGameCards(filter);
         
-        // Update active sidebar link
-        sidebarLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-        
-        // Close sidebar on mobile
-        if (window.innerWidth < 768) {
-          toggleSidebar();
-        }
-      }
-      // External links (GitHub, LinkedIn) will use their default behavior
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
     });
-  });
+  }
 
-  // Global keyboard shortcuts
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Home') {
-      e.preventDefault();
-      openGuide();
-    }
-    if (e.key === 'Escape' && xboxGuide && !xboxGuide.classList.contains('hidden')) {
-      closeGuide();
-    }
-  });
-
-  // Contact form submission
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      showAchievement('Message Sent!', 'Your contact form has been submitted.');
-      contactForm.reset();
-    });
+    contactForm.addEventListener('submit', handleContactSubmit);
   }
+}
+
+// Update Time Display
+function updateTime() {
+  if (!currentTimeEl) return;
+  
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  currentTimeEl.textContent = `${hours}:${minutes}`;
 }
 
 // Toggle Sidebar
@@ -252,17 +218,14 @@ function updateSidebarState() {
 
 // Open Xbox Guide Overlay
 function openGuide() {
-  console.log('Opening Xbox Guide');
   if (xboxGuide) {
     xboxGuide.classList.remove('hidden');
     xboxGuide.style.display = 'flex';
-    showAchievement('Guide Opened', 'Accessed the Xbox Guide interface.');
   }
 }
 
 // Close Xbox Guide Overlay
 function closeGuide() {
-  console.log('Closing Xbox Guide');
   if (xboxGuide) {
     xboxGuide.classList.add('hidden');
     xboxGuide.style.display = 'none';
@@ -294,57 +257,10 @@ function activateGuideTab(tabId) {
   });
 }
 
-// Generate Game Cards
-function generateGameCards() {
-  if (!gameCardsContainer || !resumeData.gameCards) return;
-  
-  gameCardsContainer.innerHTML = '';
-  
-  resumeData.gameCards.forEach(card => {
-    const cardEl = document.createElement('div');
-    cardEl.className = 'relative';
-    cardEl.setAttribute('data-category', card.category);
-    
-    cardEl.innerHTML = `
-      <div class="xbox-game-card">
-        <img src="${card.coverImage}" alt="${card.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div style="display: none; height: 180px; background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%); align-items: center; justify-content: center;">
-          <i class="fas fa-gamepad" style="font-size: 48px; color: #107C10;"></i>
-        </div>
-        <div class="xbox-badge">XBOX</div>
-        <div class="launch-overlay">
-          <div class="launch-text">Launch Game</div>
-          <div class="launch-button">Start ${card.title}</div>
-        </div>
-        <div class="card-content">
-          <h3 class="card-title">${card.title}</h3>
-          <p class="card-subtitle">${card.subtitle}</p>
-        </div>
-      </div>
-    `;
-    
-    // Add click event
-    cardEl.querySelector('.xbox-game-card').addEventListener('click', () => {
-      launchGameAnimation(card);
-      
-      if (card.achievements && card.achievements.length > 0) {
-        const achievement = card.achievements[0];
-        setTimeout(() => {
-          showAchievement(achievement.title, achievement.description);
-        }, 1000);
-      }
-      
-      setTimeout(() => {
-        navigateTo(card.route);
-      }, 1500);
-    });
-    
-    gameCardsContainer.appendChild(cardEl);
-  });
-}
-
 // Filter Game Cards
 function filterGameCards(filter) {
+  if (!gameCardsContainer) return;
+  
   const cards = gameCardsContainer.querySelectorAll('[data-category]');
   
   cards.forEach(card => {
@@ -357,34 +273,43 @@ function filterGameCards(filter) {
   });
 }
 
-// Launch Game Animation
-function launchGameAnimation(card) {
-  // Create launching overlay
-  const launchingOverlay = document.createElement('div');
-  launchingOverlay.className = 'launching-animation';
-  launchingOverlay.innerHTML = `
-    <div class="launching-spinner"></div>
-    <div class="launching-text">Launching ${card.title}...</div>
-    <div style="font-size: 14px; color: #a0a0a0;">Please wait</div>
-  `;
+// Handle Contact Form Submit
+function handleContactSubmit(e) {
+  e.preventDefault();
+  // Add your contact form submission logic here
+  console.log('Contact form submitted');
+}
+
+// Generate Game Cards
+function generateGameCards() {
+  if (!gameCardsContainer || !resumeData.gameCards) return;
   
-  document.body.appendChild(launchingOverlay);
+  gameCardsContainer.innerHTML = '';
   
-  // Card launch effect
-  const cardEl = document.querySelector(`[data-category="${card.category}"] .xbox-game-card`);
-  if (cardEl) {
-    cardEl.style.transform = 'scale(1.1)';
-    setTimeout(() => {
-      cardEl.style.transform = 'scale(1)';
-    }, 300);
-  }
-  
-  // Remove launching overlay after animation
-  setTimeout(() => {
-    if (launchingOverlay && launchingOverlay.parentNode) {
-      launchingOverlay.remove();
-    }
-  }, 1400);
+  resumeData.gameCards.forEach(card => {
+    const cardEl = document.createElement('div');
+    cardEl.className = 'xbox-game-card';
+    cardEl.setAttribute('data-category', card.category || 'all');
+    
+    cardEl.innerHTML = `
+      <img src="${card.coverImage || 'images/default-game.jpg'}" alt="${card.title}" style="width: 100%; height: 100%; object-fit: cover;">
+      <div class="launch-overlay">
+        <div class="launch-content">
+          <h3>${card.title}</h3>
+          <p style="font-size: 14px; margin: 8px 0;">${card.subtitle}</p>
+          <button class="launch-btn">Launch</button>
+        </div>
+      </div>
+    `;
+    
+    cardEl.addEventListener('click', () => {
+      // Convert route to actual page URL
+      const pageUrl = card.route.replace('#', '') + '.html';
+      window.location.href = pageUrl;
+    });
+    
+    gameCardsContainer.appendChild(cardEl);
+  });
 }
 
 // Generate Projects
@@ -494,68 +419,6 @@ function generateExperience() {
     
     experienceContainer.appendChild(expEl);
   });
-}
-
-// Handle Routing
-function handleRouting() {
-  const hash = window.location.hash || '#home';
-  navigateTo(hash);
-  
-  window.addEventListener('hashchange', () => {
-    navigateTo(window.location.hash);
-  });
-}
-
-// Navigate to Page
-function navigateTo(hash) {
-  const pages = document.querySelectorAll('.page-content');
-  const targetPageId = hash.replace('#', '') + '-page';
-  
-  pages.forEach(page => {
-    page.classList.remove('active');
-  });
-  
-  const targetPage = document.getElementById(targetPageId);
-  if (targetPage) {
-    targetPage.classList.add('active');
-  }
-  
-  // Update URL
-  if (hash !== window.location.hash) {
-    history.pushState(null, null, hash);
-  }
-}
-
-// Show Achievement Notification
-function showAchievement(title, description) {
-  const achievementKey = title + description;
-  if (shownAchievements.has(achievementKey)) return;
-  
-  shownAchievements.add(achievementKey);
-  
-  const achievement = document.createElement('div');
-  achievement.className = 'achievement';
-  achievement.innerHTML = `
-    <div style="display: flex; align-items: start;">
-      <div style="width: 48px; height: 48px; border-radius: 50%; background: #107C10; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
-        <i class="fas fa-trophy" style="color: white;"></i>
-      </div>
-      <div>
-        <h4 style="font-weight: bold; color: white;">${title}</h4>
-        <p style="font-size: 12px; color: #a0a0a0; margin-bottom: 5px;">${description}</p>
-        <div style="font-size: 12px; color: #107C10;">+15G</div>
-      </div>
-    </div>
-  `;
-  
-  const container = document.getElementById('achievement-container');
-  if (container) {
-    container.appendChild(achievement);
-    
-    setTimeout(() => {
-      achievement.remove();
-    }, 4000);
-  }
 }
 
 // Initialize app when DOM is loaded

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education - Lincoln Stewart Portfolio</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Achievement Container -->
+  <div id="achievement-container"></div>
+  
+  <!-- Xbox Header -->
+  <header id="xbox-header">
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <div id="profile-button">
+        <span style="color: white; font-weight: bold;">LS</span>
+      </div>
+      <div id="home-button" style="cursor: pointer;">
+        <div style="font-weight: bold;">Lincoln Stewart</div>
+        <div style="font-size: 12px; color: #a0a0a0;">Software Engineer</div>
+      </div>
+      <div style="padding: 4px 8px; border-radius: 4px; background: #107C10; color: white; font-size: 12px; font-weight: bold;">ULTIMATE</div>
+      <div style="padding: 4px 8px; border-radius: 4px; background: #2d2d2d; color: #a0a0a0; font-size: 12px;">18294</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <a href="Lincoln_Stewart_SWE_Resume.pdf" download="Lincoln_Stewart_Resume.pdf" class="btn">
+        <i class="fas fa-download"></i>
+        Resume
+      </a>
+      <div style="font-size: 14px; color: #a0a0a0;">
+        <span style="color: white;" id="current-time">00:00</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Xbox Sidebar -->
+  <div id="xbox-sidebar">
+    <nav style="padding: 20px 0;">
+      <ul style="list-style: none;">
+        <li><a href="index.html" class="sidebar-link"><i class="fa-solid fa-house"></i><span style="margin-left: 12px;">Home</span></a></li>
+        <li><a href="experience.html" class="sidebar-link"><i class="fa-solid fa-briefcase"></i><span style="margin-left: 12px;">Experience</span></a></li>
+        <li><a href="skills.html" class="sidebar-link"><i class="fa-solid fa-gear"></i><span style="margin-left: 12px;">Skills</span></a></li>
+        <li><a href="projects.html" class="sidebar-link"><i class="fa-solid fa-rocket"></i><span style="margin-left: 12px;">Projects</span></a></li>
+        <li><a href="education.html" class="sidebar-link active"><i class="fa-solid fa-graduation-cap"></i><span style="margin-left: 12px;">Education</span></a></li>
+        <li><a href="contact.html" class="sidebar-link"><i class="fa-solid fa-envelope"></i><span style="margin-left: 12px;">Contact</span></a></li>
+      </ul>
+      
+      <div style="margin-top: 30px; border-top: 1px solid #2d2d2d; padding-top: 20px;">
+        <h3 style="padding: 0 20px; font-size: 12px; font-weight: bold; color: #a0a0a0; margin-bottom: 10px;">MY GAMES</h3>
+        <ul style="list-style: none;">
+          <li><a href="index.html" class="sidebar-link"><i class="fa-solid fa-gamepad"></i><span style="margin-left: 12px;">All Games</span></a></li>
+        </ul>
+      </div>
+      
+      <div style="margin-top: 30px; border-top: 1px solid #2d2d2d; padding-top: 20px;">
+        <h3 style="padding: 0 20px; font-size: 12px; font-weight: bold; color: #a0a0a0; margin-bottom: 10px;">CONNECT</h3>
+        <ul style="list-style: none;">
+          <li><a href="https://github.com/llstewart" target="_blank" rel="noopener noreferrer" class="sidebar-link"><i class="fa-brands fa-github"></i><span style="margin-left: 12px;">GitHub</span></a></li>
+          <li><a href="https://www.linkedin.com/in/lincoln-stewart-a01655207/" target="_blank" rel="noopener noreferrer" class="sidebar-link"><i class="fa-brands fa-linkedin"></i><span style="margin-left: 12px;">LinkedIn</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  
+  <!-- Toggle Sidebar Button -->
+  <button id="toggle-sidebar">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Main Content -->
+  <main id="content">
+    <!-- Education Page -->
+    <div id="education-page" class="page-content active xbox-page">
+      <div class="dashboard-bg">
+        <div class="cosmic-particles"></div>
+      </div>
+      
+      <div class="xbox-page-header">
+        <div class="xbox-breadcrumb">
+          <span class="breadcrumb-item">Home</span>
+          <span class="breadcrumb-separator">></span>
+          <span class="breadcrumb-item active">My Games</span>
+          <span class="breadcrumb-separator">></span>
+          <span class="breadcrumb-item active">Education</span>
+        </div>
+        <h1 class="xbox-page-title">
+          <div class="xbox-icon">🎓</div>
+          Education
+        </h1>
+        <p class="xbox-page-subtitle">Academic background and qualifications</p>
+      </div>
+      
+      <div class="xbox-content-grid">
+        <div class="xbox-card">
+          <div class="xbox-card-header">
+            <div class="xbox-card-badge">EDUCATION</div>
+            <h2>Bachelor of Science, Information Science</h2>
+            <h3>University of Maryland, College Park</h3>
+          </div>
+          <div class="xbox-card-content">
+            <div class="education-details">
+              <div class="education-period">
+                <span class="period-label">Duration</span>
+                <span class="period-value">Jan 2021 - Dec 2023</span>
+              </div>
+              <div class="education-description">
+                <p>Focused on information systems, data science, and software development. Gained expertise in programming, database design, and system analysis.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html> 

@@ -52,18 +52,18 @@
   <div id="xbox-sidebar">
     <nav style="padding: 20px 0;">
       <ul style="list-style: none;">
-        <li><a href="#home" class="sidebar-link active"><i class="fa-solid fa-house"></i><span style="margin-left: 12px;">Home</span></a></li>
-        <li><a href="#experience" class="sidebar-link"><i class="fa-solid fa-briefcase"></i><span style="margin-left: 12px;">Experience</span></a></li>
-        <li><a href="#skills" class="sidebar-link"><i class="fa-solid fa-gear"></i><span style="margin-left: 12px;">Skills</span></a></li>
-        <li><a href="#projects" class="sidebar-link"><i class="fa-solid fa-rocket"></i><span style="margin-left: 12px;">Projects</span></a></li>
-        <li><a href="#education" class="sidebar-link"><i class="fa-solid fa-graduation-cap"></i><span style="margin-left: 12px;">Education</span></a></li>
-        <li><a href="#contact" class="sidebar-link"><i class="fa-solid fa-envelope"></i><span style="margin-left: 12px;">Contact</span></a></li>
+        <li><a href="index.html" class="sidebar-link active"><i class="fa-solid fa-house"></i><span style="margin-left: 12px;">Home</span></a></li>
+        <li><a href="experience.html" class="sidebar-link"><i class="fa-solid fa-briefcase"></i><span style="margin-left: 12px;">Experience</span></a></li>
+        <li><a href="skills.html" class="sidebar-link"><i class="fa-solid fa-gear"></i><span style="margin-left: 12px;">Skills</span></a></li>
+        <li><a href="projects.html" class="sidebar-link"><i class="fa-solid fa-rocket"></i><span style="margin-left: 12px;">Projects</span></a></li>
+        <li><a href="education.html" class="sidebar-link"><i class="fa-solid fa-graduation-cap"></i><span style="margin-left: 12px;">Education</span></a></li>
+        <li><a href="contact.html" class="sidebar-link"><i class="fa-solid fa-envelope"></i><span style="margin-left: 12px;">Contact</span></a></li>
       </ul>
       
       <div style="margin-top: 30px; border-top: 1px solid #2d2d2d; padding-top: 20px;">
         <h3 style="padding: 0 20px; font-size: 12px; font-weight: bold; color: #a0a0a0; margin-bottom: 10px;">MY GAMES</h3>
         <ul style="list-style: none;">
-          <li><a href="#home" class="sidebar-link"><i class="fa-solid fa-gamepad"></i><span style="margin-left: 12px;">All Games</span></a></li>
+          <li><a href="index.html" class="sidebar-link"><i class="fa-solid fa-gamepad"></i><span style="margin-left: 12px;">All Games</span></a></li>
         </ul>
       </div>
       
@@ -182,7 +182,11 @@
             <div class="hero-stats">
               <div class="stat">
                 <span class="stat-label">This Role</span>
-                <span class="stat-value">64h 21m</span>
+                <span class="stat-value">
+                  <span id="role-hours">0</span>h 
+                  <span id="role-minutes">00</span>m 
+                  <span id="role-seconds">00</span>s
+                </span>
               </div>
               <div class="stat">
                 <span class="stat-label">Progress</span>
@@ -197,9 +201,9 @@
         </div>
       </div>
 
-      <!-- Xbox Dashboard Content - Positioned Lower -->
+      <!-- Xbox Dashboard Content -->
       <div class="dashboard-container">
-        <!-- Main Game Grid (Exactly like Xbox layout) -->
+        <!-- Main Game Grid -->
         <div class="xbox-main-grid">
           <!-- Top Row - Primary Games -->
           <div class="game-row-top">
@@ -208,25 +212,27 @@
           
           <!-- Bottom Row - Secondary Cards -->
           <div class="game-row-bottom">
-            <div class="utility-card audio-card" onclick="navigateTo('#skills')">
-              <div class="utility-icon">🎧</div>
+            <div class="utility-card audio-card" onclick="window.location.href='experience.html'">
+              <div class="utility-icon">💼</div>
               <div class="utility-content">
-                <h4>Choose your audio while coding</h4>
+                <h4>Professional Journey</h4>
+                <p>View my work experience</p>
               </div>
             </div>
             
-            <div class="utility-card gamepass-card" onclick="navigateTo('#skills')">
-              <div class="gamepass-badge">🎮 TECH STACK</div>
+            <div class="utility-card gamepass-card" onclick="window.location.href='education.html'">
+              <div class="gamepass-badge">🎓 EDUCATION</div>
               <div class="utility-content">
-                <h4>Explore Lincoln's Skills</h4>
+                <h4>Academic Background</h4>
+                <p>University of Maryland</p>
               </div>
             </div>
             
-            <div class="utility-card controller-card" onclick="navigateTo('#contact')">
-              <div class="controller-image">🎮</div>
+            <div class="utility-card controller-card" onclick="window.location.href='contact.html'">
+              <div class="controller-image">📧</div>
               <div class="utility-content">
-                <h4>Find your Elite</h4>
-                <p>Contact Lincoln</p>
+                <h4>Get in Touch</h4>
+                <p>Contact for opportunities</p>
               </div>
             </div>
           </div>
@@ -245,233 +251,6 @@
           <div class="action-item">
             <i class="fas fa-download" style="margin-right: 8px;"></i>
             Add to play later
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Projects Page -->
-    <div id="projects-page" class="page-content xbox-page">
-      <div class="dashboard-bg">
-        <div class="cosmic-particles"></div>
-      </div>
-      
-      <div class="xbox-page-header">
-        <div class="xbox-breadcrumb">
-          <span class="breadcrumb-item">Home</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">My Games</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">Projects</span>
-        </div>
-        <h1 class="xbox-page-title">
-          <div class="xbox-icon">🚀</div>
-          Projects Library
-        </h1>
-        <p class="xbox-page-subtitle">Explore my development portfolio and technical achievements</p>
-      </div>
-      
-      <div class="xbox-content-grid">
-        <div id="projects-container" class="xbox-cards-container"></div>
-      </div>
-    </div>
-    
-    <!-- Skills Page -->
-    <div id="skills-page" class="page-content xbox-page">
-      <div class="dashboard-bg">
-        <div class="cosmic-particles"></div>
-      </div>
-      
-      <div class="xbox-page-header">
-        <div class="xbox-breadcrumb">
-          <span class="breadcrumb-item">Home</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">My Games</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">Skills</span>
-        </div>
-        <h1 class="xbox-page-title">
-          <div class="xbox-icon">⚙️</div>
-          Technical Skills
-        </h1>
-        <p class="xbox-page-subtitle">My programming languages, frameworks, and development tools</p>
-      </div>
-      
-      <div class="xbox-content-grid">
-        <div id="skills-container" class="xbox-skills-grid"></div>
-      </div>
-    </div>
-    
-    <!-- Experience Page -->
-    <div id="experience-page" class="page-content xbox-page">
-      <div class="dashboard-bg">
-        <div class="cosmic-particles"></div>
-      </div>
-      
-      <div class="xbox-page-header">
-        <div class="xbox-breadcrumb">
-          <span class="breadcrumb-item">Home</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">My Games</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">Experience</span>
-        </div>
-        <h1 class="xbox-page-title">
-          <div class="xbox-icon">💼</div>
-          Professional Experience
-        </h1>
-        <p class="xbox-page-subtitle">My career journey at Oshkosh Corporation and technical achievements</p>
-      </div>
-      
-      <div class="xbox-content-grid">
-        <div id="experience-container" class="xbox-experience-timeline"></div>
-      </div>
-    </div>
-    
-    <!-- Education Page -->
-    <div id="education-page" class="page-content xbox-page">
-      <div class="dashboard-bg">
-        <div class="cosmic-particles"></div>
-      </div>
-      
-      <div class="xbox-page-header">
-        <div class="xbox-breadcrumb">
-          <span class="breadcrumb-item">Home</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">My Games</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">Education</span>
-        </div>
-        <h1 class="xbox-page-title">
-          <div class="xbox-icon">🎓</div>
-          Education
-        </h1>
-        <p class="xbox-page-subtitle">Academic background and qualifications</p>
-      </div>
-      
-      <div class="xbox-content-grid">
-        <div class="xbox-card">
-          <div class="xbox-card-header">
-            <div class="xbox-card-badge">EDUCATION</div>
-            <h2>Bachelor of Science, Information Science</h2>
-            <h3>University of Maryland, College Park</h3>
-          </div>
-          <div class="xbox-card-content">
-            <div class="education-details">
-              <div class="education-period">
-                <span class="period-label">Duration</span>
-                <span class="period-value">Jan 2021 - Dec 2023</span>
-              </div>
-              <div class="education-description">
-                <p>Focused on information systems, data science, and software development. Gained expertise in programming, database design, and system analysis.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Contact Page -->
-    <div id="contact-page" class="page-content xbox-page">
-      <div class="dashboard-bg">
-        <div class="cosmic-particles"></div>
-      </div>
-      
-      <div class="xbox-page-header">
-        <div class="xbox-breadcrumb">
-          <span class="breadcrumb-item">Home</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">My Games</span>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-item active">Contact</span>
-        </div>
-        <h1 class="xbox-page-title">
-          <div class="xbox-icon">📧</div>
-          Contact Me
-        </h1>
-        <p class="xbox-page-subtitle">Get in touch for opportunities and collaborations</p>
-      </div>
-      
-      <div class="xbox-content-grid">
-        <div class="xbox-contact-grid">
-          <div class="xbox-card contact-info-card">
-            <div class="xbox-card-header">
-              <h2>Get In Touch</h2>
-              <p>Feel free to contact me for job opportunities, collaborations, or just to say hi!</p>
-            </div>
-            <div class="xbox-card-content">
-              <div class="contact-methods">
-                <div class="contact-method">
-                  <div class="contact-icon">
-                    <i class="fas fa-envelope"></i>
-                  </div>
-                  <div class="contact-details">
-                    <span class="contact-label">Email</span>
-                    <span class="contact-value">lincolnstewart4@gmail.com</span>
-                  </div>
-                </div>
-                
-                <div class="contact-method">
-                  <div class="contact-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                  </div>
-                  <div class="contact-details">
-                    <span class="contact-label">Location</span>
-                    <span class="contact-value">Hyattsville, MD</span>
-                  </div>
-                </div>
-                
-                <div class="contact-method">
-                  <div class="contact-icon">
-                    <i class="fas fa-phone"></i>
-                  </div>
-                  <div class="contact-details">
-                    <span class="contact-label">Phone</span>
-                    <span class="contact-value">(443) 460-8224</span>
-                  </div>
-                </div>
-                
-                <div class="contact-method">
-                  <div class="contact-icon">
-                    <i class="fab fa-linkedin"></i>
-                  </div>
-                  <div class="contact-details">
-                    <span class="contact-label">LinkedIn</span>
-                    <span class="contact-value">https://www.linkedin.com/in/lincoln-stewart-a01655207/</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="xbox-card contact-form-card">
-            <div class="xbox-card-header">
-              <h2>Send Message</h2>
-              <p>Direct contact form for quick communication</p>
-            </div>
-            <div class="xbox-card-content">
-              <form id="contact-form" class="xbox-form">
-                <div class="xbox-form-group">
-                  <label for="name" class="xbox-label">Name</label>
-                  <input type="text" id="name" name="name" class="xbox-input" required>
-                </div>
-                
-                <div class="xbox-form-group">
-                  <label for="email" class="xbox-label">Email</label>
-                  <input type="email" id="email" name="email" class="xbox-input" required>
-                </div>
-                
-                <div class="xbox-form-group">
-                  <label for="message" class="xbox-label">Message</label>
-                  <textarea id="message" name="message" rows="4" class="xbox-textarea" required></textarea>
-                </div>
-                
-                <button type="submit" class="xbox-button">
-                  <i class="fas fa-paper-plane"></i>
-                  Send Message
-                </button>
-              </form>
-            </div>
           </div>
         </div>
       </div>
